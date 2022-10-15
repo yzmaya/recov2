@@ -81,9 +81,8 @@
                 <label for="title">Categoria:</label>
                 
 
-                <select class="form-select" id="task-category">
-                  <option>Educación</option>
-                  <option>Alimentos</option>
+                <select onchange="addInput()" class="form-select" id="task-category" > 
+               
 
                  
                 </select>
@@ -92,7 +91,7 @@
                 <input type="number"
                   id="task-number"
                   class="form-control mb-2"
-                  placeholder="Número de Vis/Ref/Inv - Nconcretado = $"
+                  placeholder="$"
                 >
               
 
@@ -101,10 +100,11 @@
                   id="task-description"
                   rows="3"
                   class="form-control mb-3"
-                  placeholder="nombre de invitado, referencia para quien, cuanto $ generaste"
+                  placeholder="Describe tu ingreso o egreso"
                 ></textarea>
                 
                 <button class="btn btn-primary" id="btn-task-form">Guardar</button>
+            
               </form>
             </div>
           </div>
@@ -119,6 +119,47 @@
      
     </div>
 
+    <div class="container mt-3">
+ 
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+        Open modal
+      </button>
+    </div>
+    
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+    
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Nueva Categoría</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+    
+          <!-- Modal body -->
+          <div class="modal-body">
+            <form id="task-form3">
+              
+              <input id="nuevaCategoria" type="text" class="form-control mt-3" placeholder="Nombre de tu categoría">
+              <br>
+              <div>
+                <label>Elige un icono</label>
+                🍕 🥳 
+              </div>
+              <button  class="btn btn-primary" id="btn-task-formnuevo">Guardar</button>
+            </form>
+          </div>
+    
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+          </div>
+    
+        </div>
+      </div>
+    </div>
+    
 
     <div class="container mt-3">
       <h2>Toggleable Pills</h2>
@@ -219,7 +260,19 @@
 
     <script type="module" src="./index.js" type="module"></script>
    
-  
+  <script>
+    //activar boton para agregar categoria
+function addInput(){
+  var x = document.getElementById("task-category").value;
+ // document.getElementById("demo").innerHTML = "You selected: " + x;
+  //alert(x)
+  if(x == 'Nuevo ➕'){
+    alert("vamos bien")
+  }else{
+
+  }
+}
+  </script>
 
   </body>
 </html>

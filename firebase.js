@@ -203,6 +203,9 @@ console.log(fechaMes)
 export const saveTask = (date, title, category, description, cantidad, uid) =>
   addDoc(collection(db, usuarioRaiz + "/" + date), {date, title, category, description, cantidad, uid });
 
+//guardar una nueva categoria
+  export const saveCat = (categoria) =>
+  addDoc(collection(db, usuarioRaiz + "/categoria"), {categoria });
 
 
 export const onGetDia = (callback) =>
@@ -210,6 +213,9 @@ export const onGetDia = (callback) =>
 
   export const onGetMes = (callback) =>
   onSnapshot(collectionGroup(db, "10"), callback);
+
+  export const onGetCategorias = (callback) =>
+onSnapshot(collectionGroup(db, "categoria"), callback);
 
 
 

@@ -2,7 +2,9 @@
 
 import {
   onGetDia,
+  saveCat,
  onGetMes,
+ onGetCategorias,
   saveTask,
   deleteTask,
   getTask,
@@ -16,11 +18,20 @@ import {
 } from "./firebase.js";
 
 
+
+//formulario para agregar gastos o ingresos
 const taskForm = document.getElementById("task-form");
 const tasksContainer = document.getElementById("tasks-container");
 
+//tabla para visualizar el mes
 const tasksContainer2 = document.getElementById("tasks-container2");
 const botonCerrar = document.getElementById("cerrar");
+
+
+//formulario para agregar una nueva categoria
+const taskForm3 = document.getElementById("task-form3");
+const tasksContainerCategory= document.getElementById("task-category");
+
 
 let editStatus = false;
 let id = "";
@@ -71,14 +82,35 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
       //  document.getElementById('nombre').innerHTML = doc.data().name;
 
+    });
+
+  });
+
+
+  onGetCategorias((Snapshot) => {
+    // tasksContainer2.innerHTML = "";
+
+    Snapshot.forEach((doc) => {
+      const cate = doc.data().categoria;
+    //  console.log(cate);
+
+   
+
+      tasksContainerCategory.innerHTML += `
+    
+        <option>${doc.data().categoria}</option>    
+         
+
+   `;
+
+      
+
+      //  document.getElementById('nombre').innerHTML = doc.data().name;
 
     });
 
-
-
-
-
   });
+
 
   onGetDia((querySnapshot) => {
     tasksContainer.innerHTML = "";
@@ -163,7 +195,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
     querySnapshot.forEach((doc) => {
       const task = doc.data();
-      console.log(doc.data())
+      //console.log(doc.data())
       /*
             tasksContainer.innerHTML += `
             <div class="card card-body mt-2 border-primary">
@@ -275,6 +307,31 @@ taskForm.addEventListener("submit", async (e) => {
   }
 });
 
+
+//agregar una nueva categoria
+
+taskForm3.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const nuevacategoria = taskForm3["nuevaCategoria"].value;
+ 
+  try {
+    tasksContainerCategory.innerHTML = `
+    
+    
+     
+
+`;
+      await saveCat(nuevacategoria);
+   
+
+    taskForm3.reset();
+    taskForm["task-category"].value = '';
+  } catch (error) {
+    console.log(error);
+  }
+ 
+});
 
 
 
