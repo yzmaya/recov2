@@ -2,6 +2,8 @@
 
 import {
   onGetDia,
+ // q,
+  ver,
   saveCat,
  onGetMes,
  onGetCategorias,
@@ -18,7 +20,6 @@ import {
 } from "./firebase.js";
 
 
-
 //formulario para agregar gastos o ingresos
 const taskForm = document.getElementById("task-form");
 const tasksContainer = document.getElementById("tasks-container");
@@ -32,21 +33,18 @@ const botonCerrar = document.getElementById("cerrar");
 const taskForm3 = document.getElementById("task-form3");
 const tasksContainerCategory= document.getElementById("task-category");
 
-
 let editStatus = false;
 let id = "";
 const date = new Date();
 const currentMonth = date.getMonth() + 1;
 //const fechaComp = date.getFullYear() + "/" + currentMonth + "/" + date.getDate();
-const fechaComp = date.getFullYear() + "/" + date.getDate() + "/" +  currentMonth;
+const fechaComp = currentMonth+ "_" + date.getFullYear();
+const fechaRegistrar = date.getDate() + "_" + currentMonth+ "_" + date.getFullYear();
 
 console.log(fechaComp);
 
 botonCerrar.addEventListener("click", async (e) => {
   e.preventDefault();
-
-
-
 
   try {
     //  console.log(correo.value)
@@ -59,7 +57,6 @@ botonCerrar.addEventListener("click", async (e) => {
 });
 
 
-
 window.addEventListener("DOMContentLoaded", async (e) => {
   // const querySnapshot = await getTasks();
   // querySnapshot.forEach((doc) => {
@@ -68,7 +65,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
   const docu = await getTasking();
   const task = docu.data().name;
-  //  console.log(task);
+  // console.log(task);
   document.getElementById('nombre').innerHTML = task;
 
 
@@ -111,12 +108,20 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
   });
 
+ 
 
+  
+
+ // const querySnapshotu = await q;
   onGetDia((querySnapshot) => {
     tasksContainer.innerHTML = "";
 
+  
     querySnapshot.forEach((doc) => {
       const task = doc.data();
+
+      //console.log(task)
+      
       /*
             tasksContainer.innerHTML += `
             <div class="card card-body mt-2 border-primary">
@@ -195,7 +200,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
     querySnapshot.forEach((doc) => {
       const task = doc.data();
-      //console.log(doc.data())
+  //    console.log(doc.data())
       /*
             tasksContainer.innerHTML += `
             <div class="card card-body mt-2 border-primary">
@@ -268,24 +273,22 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
 });
 
-//boton para guardar 
-
-
+//guardar un nuevo registro
 taskForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-
+  
   const title = taskForm["task-title"];
   const categoria = taskForm["task-category"];
   const description = taskForm["task-description"];
   const cantidad = taskForm["task-number"];
   const uid = document.getElementById('nombre').innerHTML;
 
-
-
+ 
 
   try {
     if (!editStatus) {
-      await saveTask(fechaComp, title.value, categoria.value, description.value, cantidad.value, uid);
+      await saveTask(fechaRegistrar, title.value, categoria.value, description.value, cantidad.value, uid);
+    
     } else {
       await updateTask(id, {
         title: title.value,
@@ -294,7 +297,7 @@ taskForm.addEventListener("submit", async (e) => {
         cantidad: cantidad.value,
 
       });
-
+      
       editStatus = false;
       id = "";
       taskForm["btn-task-form"].innerText = "Save";
@@ -314,6 +317,9 @@ taskForm3.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const nuevacategoria = taskForm3["nuevaCategoria"].value;
+  const emoji = taskForm3["task-emoji"].value;
+
+  const newcategory = nuevacategoria + " " + emoji;
  
   try {
     tasksContainerCategory.innerHTML = `
@@ -322,7 +328,7 @@ taskForm3.addEventListener("submit", async (e) => {
      
 
 `;
-      await saveCat(nuevacategoria);
+      await saveCat(newcategory);
    
 
     taskForm3.reset();

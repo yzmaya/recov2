@@ -73,7 +73,7 @@ export const crearCuenta = (auth, email, password, nombre) =>
       console.log(userCredential.user.uid);
       localStorage.setItem("UserID", userCredential.user.uid);
       localStorage.setItem("IDname", nombre);
-       window.location.href = 'home.html';
+      window.location.href = 'home.html';
       // console.log(IDname);
 
 
@@ -95,7 +95,7 @@ export const iniciarSesion = (auth, email, password) =>
       const user = userCredential.user;
       localStorage.setItem("UserID", userCredential.user.uid);
       localStorage.removeItem('IDname');
-         window.location.href = 'home.html';
+      window.location.href = 'home.html';
       // ...
     })
     .catch((error) => {
@@ -123,15 +123,15 @@ onAuthStateChanged(auth, async (user) => {
 
     var nombreID = localStorage.getItem("IDname");
 
-    if (nombreID == null){
+    if (nombreID == null) {
       //console.log("a")
-      } else {
-        setDoc(doc(db, "users", uid), {
-          name: nombreID,
-      
-        });
-      }
-      
+    } else {
+      setDoc(doc(db, "users", uid), {
+        name: nombreID,
+
+      });
+    }
+
     // window.location.href = 'home.html'
     // ...
   } else {
@@ -193,31 +193,36 @@ console.log(usuarioRaiz)
 //export const saveTask = (title, description) =>
 //addDoc(collection(db,  'users'), { title, description });
 const date = new Date();
-const currentMonth = date.getMonth() + 1; 
+const currentMonth = date.getMonth() + 1;
 //const fechaComp = date.getFullYear() + "/" + currentMonth +  "/"  +date.getDate();
-const fechaComp = date.getFullYear() + "/" + date.getDate() +  "/"  + currentMonth;
-const fechaMes = date.getFullYear() + "/" + currentMonth ;
-console.log(fechaMes)
+const fechaComp = currentMonth + "_" + date.getFullYear();
+const fechaMes = currentMonth + "_" + date.getFullYear();
+const fechaDelDia = date.getDate() + "_" + currentMonth+ "_" + date.getFullYear();
+//console.log(currentMonth)
 
-
+//guardar una tarea
 export const saveTask = (date, title, category, description, cantidad, uid) =>
-  addDoc(collection(db, usuarioRaiz + "/" + date), {date, title, category, description, cantidad, uid });
+  addDoc(collection(db, usuarioRaiz + "/" + fechaMes), { date, title, category, description, cantidad, uid });
 
 //guardar una nueva categoria
-  export const saveCat = (categoria) =>
-  addDoc(collection(db, usuarioRaiz + "/categoria"), {categoria });
+export const saveCat = (categoria) =>
+  addDoc(collection(db, usuarioRaiz + "/categoria"), { categoria });
 
-
-export const onGetDia = (callback) =>
+//obtener las categorias en el form
+export const onGetCategorias = (callback) =>
+  onSnapshot(collectionGroup(db, "categoria"), callback);
+//obtener el dia en mi tabla
+  export const onGetDia = (callback) =>
+  onSnapshot(query(collection(db, usuarioRaiz + "/" + fechaComp), where("date", "==", fechaDelDia)), callback);
+//obtener el mes en mi tabla
+  export const onGetMes = (callback) =>
   onSnapshot(collection(db, usuarioRaiz + "/" + fechaComp), callback);
 
-  export const onGetMes = (callback) =>
-  onSnapshot(collectionGroup(db, "10"), callback);
 
-  export const onGetCategorias = (callback) =>
-onSnapshot(collectionGroup(db, "categoria"), callback);
+//export const q = getDocs(query(collection(db, usuarioRaiz + "/" + fechaComp), where("date", "==", fechaDelDia)));
 
 
+  export const ver = () => getDocs(query(collection(db, usuarioRaiz + "/" + fechaComp), where("date", "==", fechaDelDia)));
 
 export const onGetTasks21 = (callback) =>
   onSnapshot(collectionGroup(db, "tareas"), callback);
