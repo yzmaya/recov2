@@ -1,12 +1,10 @@
-
-
 import {
   onGetDia,
- // q,
+  // q,
   ver,
   saveCat,
- onGetMes,
- onGetCategorias,
+  onGetMes,
+  onGetCategorias,
   saveTask,
   deleteTask,
   getTask,
@@ -31,15 +29,15 @@ const botonCerrar = document.getElementById("cerrar");
 
 //formulario para agregar una nueva categoria
 const taskForm3 = document.getElementById("task-form3");
-const tasksContainerCategory= document.getElementById("task-category");
+const tasksContainerCategory = document.getElementById("task-category");
 
 let editStatus = false;
 let id = "";
 const date = new Date();
 const currentMonth = date.getMonth() + 1;
 //const fechaComp = date.getFullYear() + "/" + currentMonth + "/" + date.getDate();
-const fechaComp = currentMonth+ "_" + date.getFullYear();
-const fechaRegistrar = date.getDate() + "_" + currentMonth+ "_" + date.getFullYear();
+const fechaComp = currentMonth + "_" + date.getFullYear();
+const fechaRegistrar = date.getDate() + "_" + currentMonth + "_" + date.getFullYear();
 
 console.log(fechaComp);
 
@@ -89,9 +87,9 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
     Snapshot.forEach((doc) => {
       const cate = doc.data().categoria;
-    //  console.log(cate);
+      //  console.log(cate);
 
-   
+
 
       tasksContainerCategory.innerHTML += `
     
@@ -100,7 +98,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
    `;
 
-      
+
 
       //  document.getElementById('nombre').innerHTML = doc.data().name;
 
@@ -108,36 +106,27 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
   });
 
- 
 
-  
 
- // const querySnapshotu = await q;
+
+
+  // const querySnapshotu = await q;
   onGetDia((querySnapshot) => {
     tasksContainer.innerHTML = "";
 
-  
+    const arr = [];
     querySnapshot.forEach((doc) => {
       const task = doc.data();
 
-      //console.log(task)
+      // const sumatotal = ;
+      let myString = parseFloat(task.cantidad);
       
-      /*
-            tasksContainer.innerHTML += `
-            <div class="card card-body mt-2 border-primary">
-          <h3 class="h5">${task.cantidad} ${task.title}</h3>
-          <p>${task.description}</p>
-          <div>
-            <button class="btn btn-primary btn-delete" data-id="${doc.id}">
-              🗑 Eliminar
-            </button>
-            <button class="btn btn-secondary btn-edit" data-id="${doc.id}">
-              🖉 Editar
-            </button>
-          </div>
-        </div>`;
-          });
-      */
+
+      arr.push(myString);
+     
+     
+
+
       tasksContainer.innerHTML += `
       <tr >
         <td>${task.date}</td>    
@@ -154,11 +143,17 @@ window.addEventListener("DOMContentLoaded", async (e) => {
  🗑 Eliminar
 </button>
 </td> </tr>
-   `;
+
+   `; 
+
     });
 
+    let total = arr.reduce((a, b) => a + b, 0);
+      
+   tasksContainer.innerHTML +=  `<tr><td>Total</td><td></td><td></td><td>$`+total+`</td><td></td><td></td></tr>`
 
-
+   //console.log(arr.length)
+ 
     const btnsDelete = tasksContainer.querySelectorAll(".btn-delete");
     btnsDelete.forEach((btn) =>
       btn.addEventListener("click", async ({ target: { dataset } }) => {
@@ -188,35 +183,23 @@ window.addEventListener("DOMContentLoaded", async (e) => {
         }
       });
     });
-
+    
   });
-
+  
 
   //aqui empieza el tab para la información mensual
 
 
   onGetMes((querySnapshot) => {
     tasksContainer2.innerHTML = "";
-
+    const arr2 = [];
     querySnapshot.forEach((doc) => {
       const task = doc.data();
-  //    console.log(doc.data())
-      /*
-            tasksContainer.innerHTML += `
-            <div class="card card-body mt-2 border-primary">
-          <h3 class="h5">${task.cantidad} ${task.title}</h3>
-          <p>${task.description}</p>
-          <div>
-            <button class="btn btn-primary btn-delete" data-id="${doc.id}">
-              🗑 Eliminar
-            </button>
-            <button class="btn btn-secondary btn-edit" data-id="${doc.id}">
-              🖉 Editar
-            </button>
-          </div>
-        </div>`;
-          });
-      */
+      let myString = parseFloat(task.cantidad);
+      
+
+      arr2.push(myString);
+    
       tasksContainer2.innerHTML += `
       <tr >
         <td>${task.date}</td>    
@@ -235,8 +218,11 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 </td> </tr>
    `;
     });
-
-
+//suma total de los gastos del mes
+    let total = arr2.reduce((a, b) => a + b, 0);
+      
+    tasksContainer2.innerHTML +=  `<tr><td>Total</td><td></td><td></td><td>$`+total+`</td><td></td><td></td></tr>`
+ 
 
     const btnsDelete = tasksContainer2.querySelectorAll(".btn-delete");
     btnsDelete.forEach((btn) =>
@@ -276,19 +262,19 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 //guardar un nuevo registro
 taskForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  
+
   const title = taskForm["task-title"];
   const categoria = taskForm["task-category"];
   const description = taskForm["task-description"];
   const cantidad = taskForm["task-number"];
   const uid = document.getElementById('nombre').innerHTML;
 
- 
+
 
   try {
     if (!editStatus) {
       await saveTask(fechaRegistrar, title.value, categoria.value, description.value, cantidad.value, uid);
-    
+
     } else {
       await updateTask(id, {
         title: title.value,
@@ -297,7 +283,7 @@ taskForm.addEventListener("submit", async (e) => {
         cantidad: cantidad.value,
 
       });
-      
+
       editStatus = false;
       id = "";
       taskForm["btn-task-form"].innerText = "Save";
@@ -320,7 +306,7 @@ taskForm3.addEventListener("submit", async (e) => {
   const emoji = taskForm3["task-emoji"].value;
 
   const newcategory = nuevacategoria + " " + emoji;
- 
+
   try {
     tasksContainerCategory.innerHTML = `
     
@@ -328,15 +314,15 @@ taskForm3.addEventListener("submit", async (e) => {
      
 
 `;
-      await saveCat(newcategory);
-   
+    await saveCat(newcategory);
+
 
     taskForm3.reset();
     taskForm["task-category"].value = '';
   } catch (error) {
     console.log(error);
   }
- 
+
 });
 
 
