@@ -31,6 +31,12 @@ const botonCerrar = document.getElementById("cerrar");
 const taskForm3 = document.getElementById("task-form3");
 const tasksContainerCategory = document.getElementById("task-category");
 
+//tabla para visualizar las cuentas
+const tasksContainer3 = document.getElementById("tasks-container3");
+//formulario para agregar una nuevas cuentas
+const taskForm4 = document.getElementById("task-form4");
+
+
 let editStatus = false;
 let id = "";
 const date = new Date();
@@ -325,7 +331,29 @@ taskForm3.addEventListener("submit", async (e) => {
 
 });
 
+//agregar nuevas cuentas
+taskForm4.addEventListener("submit", async (e) => {
+  e.preventDefault();
 
+  const nuevacuenta = taskForm3["task-nombrecuenta"].value;
+  const cuentapresupuesto = taskForm3["task-presupuesto"].value;
+  const cuentadescr = taskForm3["task-desccuenta"].value;
+
+
+  //const newcategory = nuevacategoria + " " + emoji;
+
+  try {
+  
+    await saveCuenta(nuevacuenta, cuentapresupuesto, cuentadescr);
+
+
+    taskForm4.reset();
+   // taskForm["task-category"].value = '';
+  } catch (error) {
+    console.log(error);
+  }
+
+});
 
 
 

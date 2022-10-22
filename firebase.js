@@ -208,6 +208,10 @@ export const saveTask = (date, title, category, description, cantidad, uid) =>
 export const saveCat = (categoria) =>
   addDoc(collection(db, usuarioRaiz + "/categoria"), { categoria });
 
+  //guardar una nueva categoria
+export const saveCuenta = (nombre, presupuesto, description) =>
+addDoc(collection(db, usuarioRaiz + "/cuenta"), { nombre, presupuesto, description });
+
 //obtener las categorias en el form
 export const onGetCategorias = (callback) =>
   onSnapshot(collectionGroup(db, "categoria"), callback);
