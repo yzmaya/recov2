@@ -222,6 +222,10 @@ export const onGetCategorias = (callback) =>
   export const onGetMes = (callback) =>
   onSnapshot(collection(db, usuarioRaiz + "/" + fechaComp), callback);
 
+  //obtener las cuentas en la tabla
+export const onGetCuentas = (callback) =>
+onSnapshot(collectionGroup(db, "cuenta"), callback);
+
 
 //export const q = getDocs(query(collection(db, usuarioRaiz + "/" + fechaComp), where("date", "==", fechaDelDia)));
 
@@ -250,12 +254,19 @@ export const onGetTareas2 = (callback) =>
  */
 export const deleteTask = (id) => deleteDoc(doc(db, usuarioRaiz + "/" + fechaComp, id));
 
+export const deleteCuenta = (id) => deleteDoc(doc(db, usuarioRaiz + "/cuenta/" , id));
+
 export const getTask = (id) => getDoc(doc(db, usuarioRaiz + "/" + fechaComp, id));
+
+export const getCuentas = (id) => getDoc(doc(db, usuarioRaiz + "/cuenta/" , id));
 
 export const getTasking = () => getDoc(doc(db, "users", userID));
 
 export const updateTask = (id, newFields) =>
   updateDoc(doc(db, usuarioRaiz + "/" + fechaComp, id), newFields);
+
+  export const updateCuenta = (id, newFields) =>
+  updateDoc(doc(db, usuarioRaiz +  "/cuenta/", id), newFields);
 
 export const getTasks = () => getDocs(collection(db, userID));
 

@@ -2,11 +2,16 @@ import {
 
     getTasking,
     updateTask,
+    getTask,
+    getCuentas,
+    deleteCuenta,
     saveCuenta,
     onGetTareas,
     cerrarSesion,
+    onGetCuentas,
     getTasks,
     auth,
+    updateCuenta,
   
   } from "./firebase.js";
   
@@ -14,10 +19,7 @@ import {
 
   const botonCerrar = document.getElementById("cerrar");
   
-  
-
-  const tasksContainerCategory = document.getElementById("task-category");
-  
+ 
   //tabla para visualizar las cuentas
   const tasksContainer3 = document.getElementById("tasks-container3");
   //formulario para agregar una nuevas cuentas
@@ -26,13 +28,7 @@ import {
   
   let editStatus = false;
   let id = "";
-  const date = new Date();
-  const currentMonth = date.getMonth() + 1;
-  //const fechaComp = date.getFullYear() + "/" + currentMonth + "/" + date.getDate();
-  const fechaComp = currentMonth + "_" + date.getFullYear();
-  const fechaRegistrar = date.getDate() + "_" + currentMonth + "_" + date.getFullYear();
-  
-  console.log(fechaComp);
+
   
   botonCerrar.addEventListener("click", async (e) => {
     e.preventDefault();
@@ -61,24 +57,77 @@ import {
   
   
   
-    onGetTareas((querySnapshot) => {
-      // tasksContainer2.innerHTML = "";
-  
-      querySnapshot.forEach((doc) => {
-        const task = doc.data();
-        //console.log(doc.data());
-  
-        //  document.getElementById('nombre').innerHTML = doc.data().name;
-  
-      });
-  
-    });
-  
+   
   
   
   });
   
+  // const querySnapshotu = await q;
+  onGetCuentas((querySnapshot) => {
+    tasksContainer3.innerHTML = "";
+
  
+    querySnapshot.forEach((doc) => {
+      const task = doc.data();
+
+      // const sumatotal = ;
+     
+     
+
+
+      tasksContainer3.innerHTML += `
+      <tr >
+        <td>${task.nombre}</td>    
+         
+ <td>$${task.presupuesto}</td>
+ <td>${task.description}</td>
+ <td>  
+<button class="btn btn-secondary btn-edit" data-id="${doc.id}">
+ 🖉 Editar
+</button>
+<button class="btn btn-primary btn-delete" data-id="${doc.id}">
+ 🗑 Eliminar
+</button>
+</td> </tr>
+
+   `; 
+
+    });
+
+  
+   //console.log(arr.length)
+ 
+    const btnsDelete = tasksContainer3.querySelectorAll(".btn-delete");
+    btnsDelete.forEach((btn) =>
+      btn.addEventListener("click", async ({ target: { dataset } }) => {
+        try {
+          await deleteCuenta(dataset.id);
+        } catch (error) {
+          console.log(error);
+        }
+      })
+    );
+
+    const btnsEdit = tasksContainer3.querySelectorAll(".btn-edit");
+    btnsEdit.forEach((btn) => {
+      btn.addEventListener("click", async (e) => {
+        try {
+          const doc = await getCuentas(e.target.dataset.id);
+          const task = doc.data();
+          taskForm4["task-nombrecuenta"].value = task.nombre;
+          taskForm4["task-presupuesto"].value = task.presupuesto;
+          taskForm4["task-desccuenta"].value = task.description;
+        
+          editStatus = true;
+          id = doc.id;
+          taskForm4["btn-task-form"].innerText = "Actualizar";
+        } catch (error) {
+          console.log(error);
+        }
+      });
+    });
+    
+  });
   
  
   
@@ -92,13 +141,28 @@ import {
   
   
     //const newcategory = nuevacategoria + " " + emoji;
-  
-    try {
+
+
+      try {
+        if (!editStatus) {
+          await saveCuenta(nuevacuenta, cuentapresupuesto, cuentadescr);
     
-      await saveCuenta(nuevacuenta, cuentapresupuesto, cuentadescr);
-  
-  
-      taskForm4.reset();
+        } else {
+          await updateCuenta(id, {
+            nombre: nuevacuenta,
+            presupuesto: cuentapresupuesto,
+            description: cuentadescr,
+        
+    
+          });
+    
+          editStatus = false;
+          id = "";
+          taskForm4["btn-task-form"].innerText = "Save";
+        }
+    
+        taskForm4.reset();
+     
      // taskForm["task-category"].value = '';
     } catch (error) {
       console.log(error);
