@@ -210,7 +210,8 @@ export const saveCat = (categoria) =>
 
   //guardar una nueva categoria
 export const saveCuenta = (nombre, presupuesto, description) =>
-addDoc(collection(db, usuarioRaiz + "/cuenta"), { nombre, presupuesto, description });
+setDoc(doc(db, usuarioRaiz + "/cuenta/" + nombre ), { nombre, presupuesto, description });
+
 
 //obtener las categorias en el form
 export const onGetCategorias = (callback) =>
@@ -261,9 +262,19 @@ export const getTask = (id) => getDoc(doc(db, usuarioRaiz + "/" + fechaComp, id)
 export const getCuentas = (id) => getDoc(doc(db, usuarioRaiz + "/cuenta/" , id));
 
 export const getTasking = () => getDoc(doc(db, "users", userID));
+export const getTotalCtaGral = () => getDoc(doc(db, "users/" + userID + "/cuenta/General"));
 
+//obtener la cantidad para poder eliminar al presupuesto
+export const getCantidad = (id) => getDoc(doc(db, usuarioRaiz + "/" + fechaComp, id));
+
+//actualizar tareas generales
 export const updateTask = (id, newFields) =>
   updateDoc(doc(db, usuarioRaiz + "/" + fechaComp, id), newFields);
+
+//actualizar mi ingreso general
+export const updateCtaGral = (presupuesto) =>
+  updateDoc(doc(db, "users/" + userID + "/cuenta/General"), presupuesto);
+
 
   export const updateCuenta = (id, newFields) =>
   updateDoc(doc(db, usuarioRaiz +  "/cuenta/", id), newFields);

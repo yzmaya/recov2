@@ -1,8 +1,11 @@
 import {
   onGetDia,
   // q,
+  updateCtaGral,
+  getCantidad,
   ver,
   saveCat,
+  getTotalCtaGral,
   onGetMes,
   onGetCategorias,
   saveTask,
@@ -72,6 +75,9 @@ window.addEventListener("DOMContentLoaded", async (e) => {
   // console.log(task);
   document.getElementById('nombre').innerHTML = task;
 
+  const ctaG = await getTotalCtaGral();
+  const obtctag = ctaG.data().presupuesto;
+
 
 
   onGetTareas((querySnapshot) => {
@@ -125,12 +131,15 @@ window.addEventListener("DOMContentLoaded", async (e) => {
       const task = doc.data();
 
       // const sumatotal = ;
-      let myString = parseFloat(task.cantidad);
-      
 
-      arr.push(myString);
-     
-     
+
+      if (task.title == "Gastos") {
+        let myString = parseFloat(task.cantidad);
+
+        arr.push(myString);
+      } else {
+
+      }
 
 
       tasksContainer.innerHTML += `
@@ -150,21 +159,45 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 </button>
 </td> </tr>
 
-   `; 
+   `;
 
     });
 
     let total = arr.reduce((a, b) => a + b, 0);
-      
-   tasksContainer.innerHTML +=  `<tr><td>Total</td><td></td><td></td><td>$`+total+`</td><td></td><td></td></tr>`
 
-   //console.log(arr.length)
- 
+    tasksContainer.innerHTML += `<tr><td>Total</td><td></td><td></td><td>$` + total + `</td><td></td><td></td></tr>`
+
+    //console.log(arr.length)
+
     const btnsDelete = tasksContainer.querySelectorAll(".btn-delete");
     btnsDelete.forEach((btn) =>
       btn.addEventListener("click", async ({ target: { dataset } }) => {
         try {
-          await deleteTask(dataset.id);
+          const docu = await getCantidad(dataset.id);
+          const micantidadactual = docu.data().cantidad;
+          //console.log(dataset.id)
+
+          if (docu.data().title == 'Ingresos') {
+            const ctaG = await getTotalCtaGral();
+            const obtctag = ctaG.data().presupuesto;
+            //console.log(obtctag);
+            var ingresarDinero = parseFloat(obtctag) - parseFloat(micantidadactual);
+            console.log(ingresarDinero)
+            await updateCtaGral({
+
+              presupuesto: ingresarDinero,
+
+            })
+            await deleteTask(dataset.id);
+          } else {
+
+          }
+
+
+
+
+         await deleteTask(dataset.id);
+
         } catch (error) {
           console.log(error);
         }
@@ -181,6 +214,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
           taskForm["task-category"].value = task.category;
           taskForm["task-description"].value = task.description;
           taskForm["task-number"].value = task.cantidad;
+          localStorage.setItem('numeroViejito', parseFloat(task.cantidad));
           editStatus = true;
           id = doc.id;
           taskForm["btn-task-form"].innerText = "Actualizar";
@@ -189,9 +223,9 @@ window.addEventListener("DOMContentLoaded", async (e) => {
         }
       });
     });
-    
+
   });
-  
+
 
   //aqui empieza el tab para la información mensual
 
@@ -201,11 +235,17 @@ window.addEventListener("DOMContentLoaded", async (e) => {
     const arr2 = [];
     querySnapshot.forEach((doc) => {
       const task = doc.data();
-      let myString = parseFloat(task.cantidad);
-      
 
-      arr2.push(myString);
-    
+      if (task.title == "Gastos") {
+        let myString = parseFloat(task.cantidad);
+
+
+        arr2.push(myString);
+      } else {
+
+      }
+
+
       tasksContainer2.innerHTML += `
       <tr >
         <td>${task.date}</td>    
@@ -224,17 +264,46 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 </td> </tr>
    `;
     });
-//suma total de los gastos del mes
+    //suma total de los gastos del mes
     let total = arr2.reduce((a, b) => a + b, 0);
-      
-    tasksContainer2.innerHTML +=  `<tr><td>Total</td><td></td><td></td><td>$`+total+`</td><td></td><td></td></tr>`
- 
+
+    tasksContainer2.innerHTML += `<tr><td>Total</td><td></td><td></td><td>$` + total + `</td><td></td><td></td></tr>`
+
+    var totalActual = parseFloat(obtctag) - total;
+    document.getElementById('totalCuenta').innerHTML = "$" + totalActual;
+
+    //obtener el total del mes, para actualizar en el navbar de total
+    localStorage.setItem('arreglo2', total);
 
     const btnsDelete = tasksContainer2.querySelectorAll(".btn-delete");
     btnsDelete.forEach((btn) =>
       btn.addEventListener("click", async ({ target: { dataset } }) => {
         try {
-          await deleteTask(dataset.id);
+          const docu = await getCantidad(dataset.id);
+          const micantidadactual = docu.data().cantidad;
+          //console.log(dataset.id)
+
+
+          if (docu.data().title == 'Ingresos') {
+            const ctaG = await getTotalCtaGral();
+            const obtctag = ctaG.data().presupuesto;
+            //console.log(obtctag);
+            var ingresarDinero = parseFloat(obtctag) - parseFloat(micantidadactual);
+            console.log(ingresarDinero)
+            await updateCtaGral({
+
+              presupuesto: ingresarDinero,
+
+            })
+            await deleteTask(dataset.id);
+          } else {
+
+          }
+
+
+
+
+         await deleteTask(dataset.id);
         } catch (error) {
           console.log(error);
         }
@@ -251,6 +320,8 @@ window.addEventListener("DOMContentLoaded", async (e) => {
           taskForm["task-category"].value = task.category;
           taskForm["task-description"].value = task.description;
           taskForm["task-number"].value = task.cantidad;
+          localStorage.setItem('numeroViejito', parseFloat(task.cantidad));
+
           editStatus = true;
           id = doc.id;
           taskForm["btn-task-form"].innerText = "Actualizar";
@@ -280,6 +351,31 @@ taskForm.addEventListener("submit", async (e) => {
   try {
     if (!editStatus) {
       await saveTask(fechaRegistrar, title.value, categoria.value, description.value, cantidad.value, uid);
+      //esto sirve para sumar ingreso a mi total
+
+
+      if (title.value == "Ingresos") {
+        const ctaG = await getTotalCtaGral();
+        const obtctag = ctaG.data().presupuesto;
+        //console.log(obtctag);
+        var ingresarDinero = parseFloat(obtctag) + parseFloat(cantidad.value);
+        await updateCtaGral({
+
+          presupuesto: ingresarDinero,
+
+        })
+        const ctaG2 = await getTotalCtaGral();
+        const obtctag2 = ctaG2.data().presupuesto;
+
+        //obtener el total del mes
+        var totalMes = localStorage.getItem('arreglo2');
+
+        var mequedadelpresu = obtctag2 - parseFloat(totalMes);
+
+
+        document.getElementById('totalCuenta').innerHTML = "$" + mequedadelpresu;
+
+      }
 
     } else {
       await updateTask(id, {
@@ -289,6 +385,27 @@ taskForm.addEventListener("submit", async (e) => {
         cantidad: cantidad.value,
 
       });
+      //si hay que modificar el ingreso, se debe restar el monto actual y sumar 
+      if (title.value == "Ingresos") {
+        const ctaG = await getTotalCtaGral();
+        const obtctag = ctaG.data().presupuesto;
+
+
+        var numeroviejo = localStorage.getItem('numeroViejito');
+
+
+        //  console.log(numeroviejo);
+        var ingresarDinero = parseFloat(obtctag) - numeroviejo;
+        // console.log(ingresarDinero)
+        var ingresarDineroMod = ingresarDinero + parseFloat(cantidad.value);
+        //console.log(ingresarDineroMod)
+        await updateCtaGral({
+
+          presupuesto: ingresarDineroMod,
+
+        })
+
+      }
 
       editStatus = false;
       id = "";
@@ -331,29 +448,7 @@ taskForm3.addEventListener("submit", async (e) => {
 
 });
 
-//agregar nuevas cuentas
-taskForm4.addEventListener("submit", async (e) => {
-  e.preventDefault();
 
-  const nuevacuenta = taskForm3["task-nombrecuenta"].value;
-  const cuentapresupuesto = taskForm3["task-presupuesto"].value;
-  const cuentadescr = taskForm3["task-desccuenta"].value;
-
-
-  //const newcategory = nuevacategoria + " " + emoji;
-
-  try {
-  
-    await saveCuenta(nuevacuenta, cuentapresupuesto, cuentadescr);
-
-
-    taskForm4.reset();
-   // taskForm["task-category"].value = '';
-  } catch (error) {
-    console.log(error);
-  }
-
-});
 
 
 
