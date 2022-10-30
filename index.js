@@ -99,8 +99,8 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
     Snapshot.forEach((doc) => {
       const cate = doc.data().categoria;
-       console.log(cate);
-  
+     // console.log(cate);
+
 
 
       tasksContainerCategory.innerHTML += `
@@ -144,19 +144,19 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
       tasksContainer.innerHTML += `
       <tr >
-        <td>${task.date}</td>    
          
  <td>${task.category}</td>
- <td>${task.title}</td>
+
  <td>${task.cantidad}</td>
  <td>${task.description}</td>
- <td>  
+ <td> 
+ <div class="btn-group btn-group-sm"> 
 <button class="btn btn-secondary btn-edit" data-id="${doc.id}">
  🖉 Editar
 </button>
 <button class="btn btn-secondary btn-delete" data-id="${doc.id}">
  🗑 Eliminar
-</button>
+</button></div>
 </td> </tr>
 
    `;
@@ -165,7 +165,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
     let total = arr.reduce((a, b) => a + b, 0);
 
-    tasksContainer.innerHTML += `<tr><td>Total</td><td></td><td></td><td>$` + total + `</td><td></td><td></td></tr>`
+    tasksContainer.innerHTML += `<tr><td>Total</td><td>$` + total + `</td><td></td><td></tr>`
 
     //console.log(arr.length)
 
@@ -196,7 +196,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
 
 
-         await deleteTask(dataset.id);
+          await deleteTask(dataset.id);
 
         } catch (error) {
           console.log(error);
@@ -255,12 +255,13 @@ window.addEventListener("DOMContentLoaded", async (e) => {
  <td>${task.cantidad}</td>
  <td>${task.description}</td>
  <td>  
+ <div class="btn-group btn-group-sm"> 
 <button class="btn btn-secondary btn-edit" data-id="${doc.id}">
  🖉 Editar
 </button>
 <button class="btn btn-secondary btn-delete" data-id="${doc.id}">
  🗑 Eliminar
-</button>
+</button></div>
 </td> </tr>
    `;
     });
@@ -303,7 +304,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
 
 
-         await deleteTask(dataset.id);
+          await deleteTask(dataset.id);
         } catch (error) {
           console.log(error);
         }
