@@ -56,8 +56,8 @@ import {
     // console.log(task);
     document.getElementById('nombre').innerHTML = task;
   
-    const ctaG = await getTotalCtaGral();
-    const obtctag = ctaG.data().presupuesto;
+    //const ctaG = await getTotalCtaGral();
+   // const obtctag = ctaG.data().presupuesto;
     // console.log(task);
    
   

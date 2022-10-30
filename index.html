@@ -7,65 +7,63 @@
 <html>
 	<head>
 		<title>Reco V2</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
+	
+		<link rel="stylesheet" href="assets/css/mycssform.css" />
 	</head>
-	<body class="is-preload">
-
-		<!-- Header -->
-			<header id="header">
-				<h1>RECO</h1>
-				<p>Una manera simple de organizar tus ingresos/gastos.<br />
-				Y mejorar tu patrimonio.</p>
-			</header>
-
-		<!-- Signup Form -->
-			<form id="signup-form" method="post" action="#">
-                <input type="email" name="email" id="email" placeholder="Correo electrónico" />
-				<input type="password" name="*password" id="password" placeholder="Contraseña" />
-				<input type="submit" value="Iniciar Sesión" />
+<body>
+	<h2>Bienvenido a RECO</h2>
+	<div class="container" id="container">
+		<div class="form-container sign-up-container">
+			<form action="#" id="signup-form2" method="post">
+				<h1>Crear cuenta</h1>
+			<!--	<div class="social-container">
+					<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+					<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+					<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+				</div> -->
+				<!--<span>or use your email for registration</span>-->
+				<br>
+				<input type="text" id="name2" placeholder="Nombre" />
+				<input type="email" id="email2" placeholder="Correo electrónico" />
+				<input type="password" id="password2" placeholder="Contraseña" />
+				<button>Crear cuenta</button>
 			</form>
+		</div>
+		<div class="form-container sign-in-container">
+			<form action="#" id="signup-form" method="post">
+				<h1>Iniciar sesión</h1>
+			<!--<div class="social-container">
+					<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+					<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+					<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+				</div>
+				<span>or use your account</span> -->
+				<br>
+				<input type="email" id="email" placeholder="Correo electrónico" />
+				<input type="password" id="password" placeholder="Contraseña" />
+				<a href="#">¿Olvidaste tu contraseña?</a>
+				<button>Iniciar sesión</button>
+			</form>
+		</div>
+		<div class="overlay-container">
+			<div class="overlay">
+				<div class="overlay-panel overlay-left">
+					<h1>¡Que bueno verte de nuevo!</h1>
+					<p>Para mantener tus cuentas al día, no olvides ingresar tus gastos e ingresos.</p>
+					<button class="ghost" id="signIn">Iniciar sesión</button>
+				</div>
+				<div class="overlay-panel overlay-right">
+					<h1>Hola, amig@!</h1>
+					<p>Estás a un paso, para que tu salud financiera cambie</p>
+					<button class="ghost" id="signUp">Crear cuenta</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+</body>
+<script type="module" src="./log.js" type="module"></script>
 
-			<span onclick="myFunction()" style="cursor: pointer;"> ¿No tienes cuenta? Da clic aquí</span> 
-
-
-            <div style="display: none;" id="mostratSign">
-                <form id="signup-form2" method="post" action="#">
-					<input type="text" name="name" id="name2" placeholder="Nombre Completo" />
-                    <input type="email" name="email" id="email2" placeholder="Correo electrónico" />
-                    <input type="password" name="*password" id="password2" placeholder="Contraseña" />
-                    <input type="submit" value="Crear cuenta" />
-                </form>
-            </div>
-
-		<!-- Footer -->
-			<footer id="footer">
-				<ul class="icons">
-					<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-					<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-					<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-					<li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li>
-				</ul>
-				<ul class="copyright">
-					<li>&copy; 2022.</li><li>IntegrARTE</li>
-				</ul>
-			</footer>
-
-		<!-- Scripts -->
-			<script src="assets/js/main.js"></script>
-			<script>
-				function myFunction() {
-    var x = document.getElementById("mostratSign");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-}
-				</script>
-       	<!--   <script type="module" src="./index.js" type="module"></script> -->
-		   <script type="module" src="./log.js" type="module"></script>
-
-	</body>
+<script src="/assets/js/myjsform.js"></script>
 </html>

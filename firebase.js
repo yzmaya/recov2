@@ -73,7 +73,7 @@ export const crearCuenta = (auth, email, password, nombre) =>
       console.log(userCredential.user.uid);
       localStorage.setItem("UserID", userCredential.user.uid);
       localStorage.setItem("IDname", nombre);
-      window.location.href = 'home.html';
+      window.location.href = 'cuentas.html';
       // console.log(IDname);
 
 
@@ -130,6 +130,18 @@ onAuthStateChanged(auth, async (user) => {
         name: nombreID,
 
       });
+       
+      const nuevacat1 = "Educación "+ "🎓";
+      const nuevacat2 = "Nuevo "+ "➕";
+    
+      
+  
+      setDoc(doc(db, usuarioRaiz + "/categoria/ACatPrincipal"),
+       { categoria: nuevacat1, });
+
+       setDoc(doc(db, usuarioRaiz + "/categoria/ACatPrincipal2"),
+       { categoria: nuevacat2, });
+
     }
 
     // window.location.href = 'home.html'
@@ -215,7 +227,7 @@ setDoc(doc(db, usuarioRaiz + "/cuenta/" + nombre ), { nombre, presupuesto, descr
 
 //obtener las categorias en el form
 export const onGetCategorias = (callback) =>
-  onSnapshot(collectionGroup(db, "categoria"), callback);
+  onSnapshot(collection(db, usuarioRaiz + "/categoria"), callback);
 //obtener el dia en mi tabla
   export const onGetDia = (callback) =>
   onSnapshot(query(collection(db, usuarioRaiz + "/" + fechaComp), where("date", "==", fechaDelDia)), callback);
@@ -225,7 +237,7 @@ export const onGetCategorias = (callback) =>
 
   //obtener las cuentas en la tabla
 export const onGetCuentas = (callback) =>
-onSnapshot(collectionGroup(db, "cuenta"), callback);
+onSnapshot(collection(db,usuarioRaiz + "/cuenta"), callback);
 
 
 //export const q = getDocs(query(collection(db, usuarioRaiz + "/" + fechaComp), where("date", "==", fechaDelDia)));

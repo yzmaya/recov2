@@ -99,8 +99,8 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
     Snapshot.forEach((doc) => {
       const cate = doc.data().categoria;
-      //  console.log(cate);
-
+       console.log(cate);
+  
 
 
       tasksContainerCategory.innerHTML += `
@@ -404,7 +404,7 @@ taskForm.addEventListener("submit", async (e) => {
           presupuesto: ingresarDineroMod,
 
         })
-
+        document.getElementById('totalCuenta').innerHTML = "$" + ingresarDineroMod;
       }
 
       editStatus = false;
