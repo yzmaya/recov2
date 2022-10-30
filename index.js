@@ -154,7 +154,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 <button class="btn btn-secondary btn-edit" data-id="${doc.id}">
  🖉 Editar
 </button>
-<button class="btn btn-primary btn-delete" data-id="${doc.id}">
+<button class="btn btn-secondary btn-delete" data-id="${doc.id}">
  🗑 Eliminar
 </button>
 </td> </tr>
@@ -258,7 +258,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 <button class="btn btn-secondary btn-edit" data-id="${doc.id}">
  🖉 Editar
 </button>
-<button class="btn btn-primary btn-delete" data-id="${doc.id}">
+<button class="btn btn-secondary btn-delete" data-id="${doc.id}">
  🗑 Eliminar
 </button>
 </td> </tr>
