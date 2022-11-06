@@ -85,12 +85,13 @@ import {
  <td>$${task.presupuesto}</td>
  <td>${task.description}</td>
  <td>  
+ <div class="btn-group btn-group-sm"> 
 <button class="btn btn-secondary btn-edit" data-id="${doc.id}">
  🖉 Editar
 </button>
 <button class="btn btn-secondary btn-delete" data-id="${doc.id}">
  🗑 Eliminar
-</button>
+</button></div>
 </td> </tr>
 
    `; 

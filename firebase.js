@@ -249,7 +249,18 @@ export const onGetCategorias = (callback) =>
 //obtener el mes en mi tabla
   export const onGetMes = (callback) =>
   onSnapshot(collection(db, usuarioRaiz + "/" + fechaComp), callback);
+//obtener el año en mi tabla
 
+
+export const onGetAnual10 = (callback) =>
+  onSnapshot(collection(db, usuarioRaiz + "/" + "10_"+date.getFullYear()), callback);
+
+  export const onGetAnual11 = (callback) =>
+  onSnapshot(collection(db, usuarioRaiz + "/" + "11_"+date.getFullYear()), callback);
+
+  export const onGetAnual12 = (callback) =>
+  onSnapshot(collection(db, usuarioRaiz + "/" + "12_"+date.getFullYear()), callback);
+  
   //obtener las cuentas en la tabla
 export const onGetCuentas = (callback) =>
 onSnapshot(collection(db,usuarioRaiz + "/cuenta"), callback);

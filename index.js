@@ -7,6 +7,9 @@ import {
   saveCat,
   getTotalCtaGral,
   onGetMes,
+  onGetAnual10,
+  onGetAnual11,
+  onGetAnual12,
   onGetCategorias,
   saveTask,
   deleteTask,
@@ -30,11 +33,14 @@ const tasksContainer2 = document.getElementById("tasks-container2");
 const botonCerrar = document.getElementById("cerrar");
 
 
+const botonVerTodo = document.getElementById("miVerTodo");
+
+
 //formulario para agregar una nueva categoria
 const taskForm3 = document.getElementById("task-form3");
 const tasksContainerCategory = document.getElementById("task-category");
 
-//tabla para visualizar las cuentas
+//tabla para visualizar el año
 const tasksContainer3 = document.getElementById("tasks-container3");
 //formulario para agregar una nuevas cuentas
 const taskForm4 = document.getElementById("task-form4");
@@ -151,7 +157,8 @@ window.addEventListener("DOMContentLoaded", async (e) => {
  <td>${task.description}</td>
  <td> 
  <div class="btn-group btn-group-sm"> 
-<button class="btn btn-secondary btn-edit" data-id="${doc.id}">
+
+<button onclick="location.href='#FormRegistrar'"  class="btn btn-secondary btn-edit" data-id="${doc.id}">
  🖉 Editar
 </button>
 <button class="btn btn-secondary btn-delete" data-id="${doc.id}">
@@ -233,6 +240,10 @@ window.addEventListener("DOMContentLoaded", async (e) => {
   onGetMes((querySnapshot) => {
     tasksContainer2.innerHTML = "";
     const arr2 = [];
+
+    //ir a mi div para editar
+
+
     querySnapshot.forEach((doc) => {
       const task = doc.data();
 
@@ -256,8 +267,9 @@ window.addEventListener("DOMContentLoaded", async (e) => {
  <td>${task.description}</td>
  <td>  
  <div class="btn-group btn-group-sm"> 
-<button class="btn btn-secondary btn-edit" data-id="${doc.id}">
- 🖉 Editar
+
+<button onclick="location.href='#FormRegistrar'"  class="btn btn-secondary btn-edit" data-id="${doc.id}">
+🖉 Editar
 </button>
 <button class="btn btn-secondary btn-delete" data-id="${doc.id}">
  🗑 Eliminar
@@ -335,7 +347,79 @@ window.addEventListener("DOMContentLoaded", async (e) => {
   });
 
 
+ 
+    //suma total de los gastos del mes
+  
+
+
+  });
+
+
+
+const arrtotal = [];
+onGetAnual10((querySnapshot) => {
+ // tasksContainer3.innerHTML = "";
+ 
+
+  querySnapshot.forEach((doc) => {
+    const task = doc.data();
+   // console.log(task)
+    arrtotal.push(task);
+
+  })
+
+})
+
+onGetAnual11((querySnapshot) => {
+
+   querySnapshot.forEach((doc) => {
+     const task = doc.data();
+   //  console.log(task)
+     arrtotal.push(task);
+   
+ 
+ 
+   })
+   
+ })
+
+ onGetAnual12((querySnapshot) => {
+
+  querySnapshot.forEach((doc) => {
+    const task = doc.data();
+  //  console.log(task)
+    arrtotal.push(task);
+  
+
+
+  })
+  
+})
+
+//aTEST///////////////////////////////////////////////////////////
+botonVerTodo.addEventListener("click", async (e) => {
+  e.preventDefault();
+
+  tasksContainer3.innerHTML = "";
+
+  for (var i = 0; i < arrtotal.length; i++) {
+    console.log(arrtotal[i].category);
+    tasksContainer3.innerHTML += `
+    <tr >
+      <td>${arrtotal[i].date}</td>    
+       
+<td>${arrtotal[i].category}</td>
+<td>${arrtotal[i].title}</td>
+<td>${arrtotal[i].cantidad}</td>
+<td>${arrtotal[i].description}</td>
+ </tr>
+ `;
+  } 
+
 });
+
+
+
 
 //guardar un nuevo registro
 taskForm.addEventListener("submit", async (e) => {
