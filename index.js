@@ -46,6 +46,8 @@ const tasksContainer3 = document.getElementById("tasks-container3");
 const taskForm4 = document.getElementById("task-form4");
 
 
+const menu3 = document.getElementById("menuAnio");
+
 let editStatus = false;
 let id = "";
 const date = new Date();
@@ -370,40 +372,41 @@ onGetAnual10((querySnapshot) => {
 
 })
 
-onGetAnual11((querySnapshot) => {
 
-   querySnapshot.forEach((doc) => {
-     const task = doc.data();
-   //  console.log(task)
-     arrtotal.push(task);
-   
- 
- 
-   })
-   
- })
-
- onGetAnual12((querySnapshot) => {
-
-  querySnapshot.forEach((doc) => {
-    const task = doc.data();
-  //  console.log(task)
-    arrtotal.push(task);
-  
-
-
-  })
-  
-})
 
 //aTEST///////////////////////////////////////////////////////////
+
+
+menu3.addEventListener("click", async (e) => {
+  e.preventDefault();
+
+  //noviembre
+  onGetAnual11((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      const task = doc.data();
+
+      arrtotal.push(task);  
+    })
+  });
+ //diciembre
+  onGetAnual12((querySnapshot) => {
+   querySnapshot.forEach((doc) => {
+     const task = doc.data();
+     arrtotal.push(task);
+   })
+ });
+
+ //se termina evento click 
+});
+
+
 botonVerTodo.addEventListener("click", async (e) => {
   e.preventDefault();
 
   tasksContainer3.innerHTML = "";
 
   for (var i = 0; i < arrtotal.length; i++) {
-    console.log(arrtotal[i].category);
+   // console.log(arrtotal[i].category);
     tasksContainer3.innerHTML += `
     <tr >
       <td>${arrtotal[i].date}</td>    
