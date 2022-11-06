@@ -99,7 +99,7 @@
               </select>
 
               <label for="description">Cantidad:</label>
-              <input type="number" id="task-number" class="form-control mb-2" placeholder="$">
+              <input type="number" step="any" id="task-number" class="form-control mb-2" placeholder="$">
 
 
               <label for="description">Descripción:</label>
@@ -252,7 +252,7 @@
           Excel</button>
       </div>
       <div id="menu2" class="container tab-pane fade"><br>
-        <button id="miVerTodo"  class="btn btn-success">Ver todo</button>
+        <button id="miVerTodo"  class="btn btn-primary btn-sm">Ver todo</button>
         <div class="table-responsive">
           <table class="table  table-striped" id="testTable2">
             <thead>
@@ -294,7 +294,7 @@
         <div class="card-body">
           <h4 class="card-title">¿Deudas?</h4>
           <p class="card-text">¿Te has preguntado si es posible pagar tus deudas o créditos, de acuerdo al CAT?</p>
-          <button type="button" class="btn btn-primary">Seguir leyendo</button>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myNotice1">Seguir leyendo</button>
         </div>
       </div>
 
@@ -302,24 +302,101 @@
         <div class="card-body">
           <h4 class="card-title">¿Cómo empezar en el mundo de las inversiones?</h4>
           <p class="card-text">Pon a tu dinero a trabajar por tí, y disfruta de los beneficios al largo plazo.</p>
-          <button type="button" class="btn btn-primary">Seguir leyendo</button>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myNotice2">Seguir leyendo</button>
         </div>
       </div>
 
       <div class="col-md-4">
         <div class="card-body">
           <h4 class="card-title">¡Promoción de seguro de auto!</h4>
-          <p class="card-text">Obten hasta un 30% de descuento en tu primer año de seguro de auto, con cobertura total</p>
-          <button type="button" class="btn btn-primary">Conoce más</button>
+          <p class="card-text">Obten hasta un 30% de descuento en tu primer año de seguro de auto, con cobertura total.</p>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myNotice3">Conoce más</button>
         </div>
       </div>
     </div>
 
   </div>
 </div>
-  <!-- CUSTOM CODE -->
+  <!-- CUSTOM CODE NOTICIAS MODALES -->
+<!-- NOTICIA 1-->
+<!-- The Modal -->
+<div class="modal" id="myNotice1">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">¿Deudas?</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <p>¿Te has preguntado si es posible pagar tus deudas o créditos, de acuerdo al CAT?</p>
+       
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-bs-dismiss="modal">Cancelar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 
+<!-- NOTICIA 2-->
+<!-- The Modal -->
+<div class="modal" id="myNotice2">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">¿Cómo empezar en el mundo de las inversiones?</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+       <p>Pon a tu dinero a trabajar por tí, y disfruta de los beneficios al largo plazo.</p>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-bs-dismiss="modal">Cancelar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- NOTICIA 3-->
+<!-- The Modal -->
+<div class="modal" id="myNotice3">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">¡Promoción de seguro de auto!</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+       <p>Obten hasta un 30% de descuento en tu primer año de seguro de auto, con cobertura total.</p>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-bs-dismiss="modal">Cancelar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
   <script type="module" src="./index.js" type="module"></script>
 
 

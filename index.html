@@ -73,9 +73,14 @@
 		</div>
 		<div class="modal-body">
 			<form id="signup-form2" method="post" action="#">
-				<input type="text" class="form-control mb-2"  name="name" id="name2" placeholder="Nombre Completo" />
-				<input type="email" class="form-control mb-2"  name="email" id="email2" placeholder="Correo electrónico" />
-				<input type="password" class="form-control mb-2"  name="*password" id="password2" placeholder="Contraseña" />
+				<input type="text" class="form-control mb-2"  name="name" id="name2" placeholder="Nombre Completo" required=""/>
+				<input type="email" class="form-control mb-2"  name="email" id="email2" placeholder="Correo electrónico" required=""/>
+				<input type="password" class="form-control mb-2"  name="*password" id="password2" placeholder="Contraseña" required="" />
+				
+				<input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" required="">
+				<a href="avisodeprivacidad.html" target="_blank"  class="form-check-label" for="flexSwitchCheckDefault">Aviso de privacidad</a>
+				<br><br>
+			 
 				<input type="submit" class="btn btn-primary form-control mb-2"  value="Crear cuenta" />
 			</form>
 		</div>
