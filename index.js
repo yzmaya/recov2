@@ -7,6 +7,15 @@ import {
   saveCat,
   getTotalCtaGral,
   onGetMes,
+  onGetAnual01,
+  onGetAnual02,
+  onGetAnual03,
+  onGetAnual04,
+  onGetAnual05,
+  onGetAnual06,
+  onGetAnual07,
+  onGetAnual08,
+  onGetAnual09,
   onGetAnual10,
   onGetAnual11,
   onGetAnual12,
@@ -107,7 +116,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
     Snapshot.forEach((doc) => {
       const cate = doc.data().categoria;
-     // console.log(cate);
+      // console.log(cate);
 
 
 
@@ -349,23 +358,23 @@ window.addEventListener("DOMContentLoaded", async (e) => {
   });
 
 
- 
-    //suma total de los gastos del mes
-  
+
+  //suma total de los gastos del mes
 
 
-  });
+
+});
 
 
 
 const arrtotal = [];
 onGetAnual10((querySnapshot) => {
- // tasksContainer3.innerHTML = "";
- 
+  // tasksContainer3.innerHTML = "";
+
 
   querySnapshot.forEach((doc) => {
     const task = doc.data();
-   // console.log(task)
+    // console.log(task)
     arrtotal.push(task);
 
   })
@@ -380,23 +389,113 @@ onGetAnual10((querySnapshot) => {
 menu3.addEventListener("click", async (e) => {
   e.preventDefault();
 
+  //enero
+  onGetAnual01((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      const task = doc.data();
+
+      arrtotal.push(task);
+    })
+  });
+  //febrero
+  onGetAnual02((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      const task = doc.data();
+
+      arrtotal.push(task);
+    })
+  });
+
+  //marzo
+  onGetAnual03((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      const task = doc.data();
+
+      arrtotal.push(task);
+    })
+  });
+
+  //abril
+  onGetAnual04((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      const task = doc.data();
+
+      arrtotal.push(task);
+    })
+  });
+
+  //mayo
+  onGetAnual05((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      const task = doc.data();
+
+      arrtotal.push(task);
+    })
+  });
+
+
+  //junio
+  onGetAnual06((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      const task = doc.data();
+
+      arrtotal.push(task);
+    })
+  });
+
+  //julio
+  onGetAnual07((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      const task = doc.data();
+
+      arrtotal.push(task);
+    })
+  });
+
+  //agosto
+  onGetAnual08((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      const task = doc.data();
+
+      arrtotal.push(task);
+    })
+  });
+
+  //septiembre
+  onGetAnual09((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      const task = doc.data();
+
+      arrtotal.push(task);
+    })
+  });
+
+    //octubre
+    onGetAnual10((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        const task = doc.data();
+  
+        arrtotal.push(task);
+      })
+    });
+
   //noviembre
   onGetAnual11((querySnapshot) => {
     querySnapshot.forEach((doc) => {
       const task = doc.data();
 
-      arrtotal.push(task);  
+      arrtotal.push(task);
     })
   });
- //diciembre
+  //diciembre
   onGetAnual12((querySnapshot) => {
-   querySnapshot.forEach((doc) => {
-     const task = doc.data();
-     arrtotal.push(task);
-   })
- });
+    querySnapshot.forEach((doc) => {
+      const task = doc.data();
+      arrtotal.push(task);
+    })
+  });
 
- //se termina evento click 
+  //se termina evento click 
 });
 
 
@@ -406,7 +505,7 @@ botonVerTodo.addEventListener("click", async (e) => {
   tasksContainer3.innerHTML = "";
 
   for (var i = 0; i < arrtotal.length; i++) {
-   // console.log(arrtotal[i].category);
+    console.log(arrtotal[i].category);
     tasksContainer3.innerHTML += `
     <tr >
       <td>${arrtotal[i].date}</td>    
@@ -417,7 +516,7 @@ botonVerTodo.addEventListener("click", async (e) => {
 <td>${arrtotal[i].description}</td>
  </tr>
  `;
-  } 
+  }
 
 });
 
@@ -530,6 +629,7 @@ taskForm3.addEventListener("submit", async (e) => {
 
     taskForm3.reset();
     taskForm["task-category"].value = '';
+    alert('agregaste una nueva categoría!')
   } catch (error) {
     console.log(error);
   }

@@ -104,18 +104,18 @@ export const iniciarSesion = (auth, email, password) =>
     });
 
 
-    export const recuperarContrasena = (auth, email) =>
-    sendPasswordResetEmail(auth, email)
-      .then(() => {
-        // Signed in
-        console.log("Se envio al correo")
-        
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
+export const recuperarContrasena = (auth, email) =>
+  sendPasswordResetEmail(auth, email)
+    .then(() => {
+      // Signed in
+      console.log("Se envio al correo")
+
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
 
 
 var userID = localStorage.getItem("UserID");
@@ -145,17 +145,17 @@ onAuthStateChanged(auth, async (user) => {
         name: nombreID,
 
       });
-       
-      const nuevacat1 = "Educación "+ "🎓";
-      const nuevacat2 = "Nuevo "+ "➕";
-    
-      
-  
-      setDoc(doc(db, usuarioRaiz + "/categoria/ACatPrincipal"),
-       { categoria: nuevacat1, });
 
-       setDoc(doc(db, usuarioRaiz + "/categoria/ACatPrincipal2"),
-       { categoria: nuevacat2, });
+      const nuevacat1 = "Educación " + "🎓";
+      const nuevacat2 = "Nuevo " + "➕";
+
+
+
+      setDoc(doc(db, usuarioRaiz + "/categoria/ACatPrincipal"),
+        { categoria: nuevacat1, });
+
+      setDoc(doc(db, usuarioRaiz + "/categoria/ACatPrincipal2"),
+        { categoria: nuevacat2, });
 
     }
 
@@ -224,7 +224,7 @@ const currentMonth = date.getMonth() + 1;
 //const fechaComp = date.getFullYear() + "/" + currentMonth +  "/"  +date.getDate();
 const fechaComp = currentMonth + "_" + date.getFullYear();
 const fechaMes = currentMonth + "_" + date.getFullYear();
-const fechaDelDia = date.getDate() + "_" + currentMonth+ "_" + date.getFullYear();
+const fechaDelDia = date.getDate() + "_" + currentMonth + "_" + date.getFullYear();
 //console.log(currentMonth)
 
 //guardar una tarea
@@ -235,41 +235,67 @@ export const saveTask = (date, title, category, description, cantidad, uid) =>
 export const saveCat = (categoria) =>
   addDoc(collection(db, usuarioRaiz + "/categoria"), { categoria });
 
-  //guardar una nueva categoria
+//guardar una cuenta
 export const saveCuenta = (nombre, presupuesto, description) =>
-setDoc(doc(db, usuarioRaiz + "/cuenta/" + nombre ), { nombre, presupuesto, description });
+  setDoc(doc(db, usuarioRaiz + "/cuenta/" + nombre), { nombre, presupuesto, description });
 
 
 //obtener las categorias en el form
 export const onGetCategorias = (callback) =>
   onSnapshot(collection(db, usuarioRaiz + "/categoria"), callback);
 //obtener el dia en mi tabla
-  export const onGetDia = (callback) =>
+export const onGetDia = (callback) =>
   onSnapshot(query(collection(db, usuarioRaiz + "/" + fechaComp), where("date", "==", fechaDelDia)), callback);
 //obtener el mes en mi tabla
-  export const onGetMes = (callback) =>
+export const onGetMes = (callback) =>
   onSnapshot(collection(db, usuarioRaiz + "/" + fechaComp), callback);
 //obtener el año en mi tabla
 
+export const onGetAnual01 = (callback) =>
+  onSnapshot(collection(db, usuarioRaiz + "/" + "1_" + date.getFullYear()), callback);
+
+export const onGetAnual02 = (callback) =>
+  onSnapshot(collection(db, usuarioRaiz + "/" + "2_" + date.getFullYear()), callback);
+
+export const onGetAnual03 = (callback) =>
+  onSnapshot(collection(db, usuarioRaiz + "/" + "3_" + date.getFullYear()), callback);
+
+export const onGetAnual04 = (callback) =>
+  onSnapshot(collection(db, usuarioRaiz + "/" + "4_" + date.getFullYear()), callback);
+
+export const onGetAnual05 = (callback) =>
+  onSnapshot(collection(db, usuarioRaiz + "/" + "5_" + date.getFullYear()), callback);
+
+export const onGetAnual06 = (callback) =>
+  onSnapshot(collection(db, usuarioRaiz + "/" + "6_" + date.getFullYear()), callback);
+
+export const onGetAnual07 = (callback) =>
+  onSnapshot(collection(db, usuarioRaiz + "/" + "7_" + date.getFullYear()), callback);
+
+export const onGetAnual08 = (callback) =>
+  onSnapshot(collection(db, usuarioRaiz + "/" + "8_" + date.getFullYear()), callback);
+
+export const onGetAnual09 = (callback) =>
+  onSnapshot(collection(db, usuarioRaiz + "/" + "9_" + date.getFullYear()), callback);
 
 export const onGetAnual10 = (callback) =>
-  onSnapshot(collection(db, usuarioRaiz + "/" + "10_"+date.getFullYear()), callback);
+  onSnapshot(collection(db, usuarioRaiz + "/" + "10_" + date.getFullYear()), callback);
 
-  export const onGetAnual11 = (callback) =>
-  onSnapshot(collection(db, usuarioRaiz + "/" + "11_"+date.getFullYear()), callback);
+export const onGetAnual11 = (callback) =>
+  onSnapshot(collection(db, usuarioRaiz + "/" + "11_" + date.getFullYear()), callback);
 
-  export const onGetAnual12 = (callback) =>
-  onSnapshot(collection(db, usuarioRaiz + "/" + "12_"+date.getFullYear()), callback);
-  
-  //obtener las cuentas en la tabla
+export const onGetAnual12 = (callback) =>
+  onSnapshot(collection(db, usuarioRaiz + "/" + "12_" + date.getFullYear()), callback);
+
+//obtener las cuentas en la tabla
 export const onGetCuentas = (callback) =>
-onSnapshot(collection(db,usuarioRaiz + "/cuenta"), callback);
+  onSnapshot(collection(db, usuarioRaiz + "/cuenta"), callback);
 
 
 //export const q = getDocs(query(collection(db, usuarioRaiz + "/" + fechaComp), where("date", "==", fechaDelDia)));
 
 
-  export const ver = () => getDocs(query(collection(db, usuarioRaiz + "/" + fechaComp), where("date", "==", fechaDelDia)));
+export const ver = () => getDocs(query(collection(db, usuarioRaiz + "/" + fechaComp), where("date", "==", fechaDelDia)));
 
 export const onGetTasks21 = (callback) =>
   onSnapshot(collectionGroup(db, "tareas"), callback);
@@ -293,11 +319,11 @@ export const onGetTareas2 = (callback) =>
  */
 export const deleteTask = (id) => deleteDoc(doc(db, usuarioRaiz + "/" + fechaComp, id));
 
-export const deleteCuenta = (id) => deleteDoc(doc(db, usuarioRaiz + "/cuenta/" , id));
+export const deleteCuenta = (id) => deleteDoc(doc(db, usuarioRaiz + "/cuenta/", id));
 
 export const getTask = (id) => getDoc(doc(db, usuarioRaiz + "/" + fechaComp, id));
 
-export const getCuentas = (id) => getDoc(doc(db, usuarioRaiz + "/cuenta/" , id));
+export const getCuentas = (id) => getDoc(doc(db, usuarioRaiz + "/cuenta/", id));
 
 export const getTasking = () => getDoc(doc(db, "users", userID));
 export const getTotalCtaGral = () => getDoc(doc(db, "users/" + userID + "/cuenta/General"));
@@ -314,8 +340,8 @@ export const updateCtaGral = (presupuesto) =>
   updateDoc(doc(db, "users/" + userID + "/cuenta/General"), presupuesto);
 
 
-  export const updateCuenta = (id, newFields) =>
-  updateDoc(doc(db, usuarioRaiz +  "/cuenta/", id), newFields);
+export const updateCuenta = (id, newFields) =>
+  updateDoc(doc(db, usuarioRaiz + "/cuenta/", id), newFields);
 
 export const getTasks = () => getDocs(collection(db, userID));
 
