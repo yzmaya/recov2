@@ -63,7 +63,11 @@ const date = new Date();
 const currentMonth = date.getMonth() + 1;
 //const fechaComp = date.getFullYear() + "/" + currentMonth + "/" + date.getDate();
 const fechaComp = currentMonth + "_" + date.getFullYear();
-const fechaRegistrar = date.getDate() + "_" + currentMonth + "_" + date.getFullYear();
+const fechaDiaRegistro = date.getDate();
+
+let mesActual = new Intl.DateTimeFormat('es-ES', { month: 'long'}).format(new Date());
+//console.log(mesActual)
+
 
 console.log(fechaComp);
 
@@ -183,7 +187,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
     let total = arr.reduce((a, b) => a + b, 0);
 
-    tasksContainer.innerHTML += `<tr><td>Total</td><td>$` + total + `</td><td></td><td></tr>`
+    tasksContainer.innerHTML += `<tr><td>Total</td><td>$` + total.toLocaleString('es-MX') + `</td><td></td><td></tr>`
 
     //console.log(arr.length)
 
@@ -253,8 +257,6 @@ window.addEventListener("DOMContentLoaded", async (e) => {
     const arr2 = [];
 
     //ir a mi div para editar
-
-
     querySnapshot.forEach((doc) => {
       const task = doc.data();
 
@@ -291,10 +293,10 @@ window.addEventListener("DOMContentLoaded", async (e) => {
     //suma total de los gastos del mes
     let total = arr2.reduce((a, b) => a + b, 0);
 
-    tasksContainer2.innerHTML += `<tr><td>Total</td><td></td><td></td><td>$` + total + `</td><td></td><td></td></tr>`
+    tasksContainer2.innerHTML += `<tr><td>Total</td><td></td><td></td><td>$` + total.toLocaleString('es-MX') + `</td><td></td><td></td></tr>`
 
     var totalActual = parseFloat(obtctag) - total;
-    document.getElementById('totalCuenta').innerHTML = "$" + totalActual;
+    document.getElementById('totalCuenta').innerHTML = "$" + totalActual.toLocaleString('es-MX');
 
     //obtener el total del mes, para actualizar en el navbar de total
     localStorage.setItem('arreglo2', total);
@@ -508,7 +510,7 @@ botonVerTodo.addEventListener("click", async (e) => {
     console.log(arrtotal[i].category);
     tasksContainer3.innerHTML += `
     <tr >
-      <td>${arrtotal[i].date}</td>    
+      <td>${arrtotal[i].mesActual}</td>    
        
 <td>${arrtotal[i].category}</td>
 <td>${arrtotal[i].title}</td>
@@ -537,7 +539,7 @@ taskForm.addEventListener("submit", async (e) => {
 
   try {
     if (!editStatus) {
-      await saveTask(fechaRegistrar, title.value, categoria.value, description.value, cantidad.value, uid);
+      await saveTask(fechaDiaRegistro, title.value, categoria.value, description.value, cantidad.value, mesActual,  uid);
       //esto sirve para sumar ingreso a mi total
 
 
@@ -560,7 +562,7 @@ taskForm.addEventListener("submit", async (e) => {
         var mequedadelpresu = obtctag2 - parseFloat(totalMes);
 
 
-        document.getElementById('totalCuenta').innerHTML = "$" + mequedadelpresu;
+        document.getElementById('totalCuenta').innerHTML = "$" + mequedadelpresu.toLocaleString('es-MX');
 
       }
 
@@ -591,7 +593,7 @@ taskForm.addEventListener("submit", async (e) => {
           presupuesto: ingresarDineroMod,
 
         })
-        document.getElementById('totalCuenta').innerHTML = "$" + ingresarDineroMod;
+        document.getElementById('totalCuenta').innerHTML = "$" + ingresarDineroMod.toLocaleString('es-MX');
       }
 
       editStatus = false;

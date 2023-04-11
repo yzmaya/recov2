@@ -232,7 +232,7 @@
           <table class="table  table-striped" id="testTable">
             <thead>
               <tr>
-                <th>Fecha</th>
+                <th id="mesEnCurso">Fecha</th>
                 <th>Categoria</th>
                 <th>Tipo</th>
                 <th>Cantidad</th>
@@ -403,6 +403,9 @@
 
 
   <script type="text/javascript">
+
+let mesActual = new Intl.DateTimeFormat('es-ES', { month: 'long'}).format(new Date());
+document.getElementById('mesEnCurso').innerHTML = mesActual;
   function fnExcelReport()
 {
     var tab_text="<table border='2px'><tr bgcolor='#87AFC6'>";

@@ -82,7 +82,7 @@ import {
       <tr >
         <td>${task.nombre}</td>    
          
- <td>$${task.presupuesto}</td>
+ <td>$${task.presupuesto.toLocaleString('es-MX')}</td>
  <td>${task.description}</td>
  <td>  
  <div class="btn-group btn-group-sm"> 

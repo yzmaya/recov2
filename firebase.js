@@ -13,6 +13,7 @@ import {
   collection,
   collectionGroup,
   query,
+  orderBy,
   where,
   getDocs,
   onSnapshot,
@@ -38,6 +39,9 @@ const firebaseConfig = {
   messagingSenderId: "131854706929",
   appId: "1:131854706929:web:2192579afe3f4c5515e150"
 };
+
+
+
 
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore();
@@ -225,11 +229,12 @@ const currentMonth = date.getMonth() + 1;
 const fechaComp = currentMonth + "_" + date.getFullYear();
 const fechaMes = currentMonth + "_" + date.getFullYear();
 const fechaDelDia = date.getDate() + "_" + currentMonth + "_" + date.getFullYear();
+const miDiaInteger = date.getDate();
 //console.log(currentMonth)
 
 //guardar una tarea
-export const saveTask = (date, title, category, description, cantidad, uid) =>
-  addDoc(collection(db, usuarioRaiz + "/" + fechaMes), { date, title, category, description, cantidad, uid });
+export const saveTask = (date, title, category, description, cantidad, mesActual, uid) =>
+  addDoc(collection(db, usuarioRaiz + "/" + fechaMes), { date, title, category, description, cantidad, mesActual, uid });
 
 //guardar una nueva categoria
 export const saveCat = (categoria) =>
@@ -245,10 +250,10 @@ export const onGetCategorias = (callback) =>
   onSnapshot(collection(db, usuarioRaiz + "/categoria"), callback);
 //obtener el dia en mi tabla
 export const onGetDia = (callback) =>
-  onSnapshot(query(collection(db, usuarioRaiz + "/" + fechaComp), where("date", "==", fechaDelDia)), callback);
+  onSnapshot(query(collection(db, usuarioRaiz + "/" + fechaComp), where("date", "==", miDiaInteger)), callback);
 //obtener el mes en mi tabla
 export const onGetMes = (callback) =>
-  onSnapshot(collection(db, usuarioRaiz + "/" + fechaComp), callback);
+  onSnapshot(query(collection(db, usuarioRaiz + "/" + fechaComp), orderBy("date","desc")), callback);
 //obtener el año en mi tabla
 
 export const onGetAnual01 = (callback) =>
