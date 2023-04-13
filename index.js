@@ -33,6 +33,33 @@ import {
 } from "./firebase.js";
 
 
+var ctx = document.getElementById('myChart').getContext("2d");
+var myChart = new Chart(ctx, {
+  type: "pie",
+  data: {
+    labels: ['Alimentos', 'Transporte', 'Entretenimiento', 'Educación'],
+    datasets: [{
+      label: 'cantidad gastada',
+      data: [10, 9, 13, 10],
+      backgroundColor: [
+        'rgb(66,134,244)',
+        'rgb(250,412,120)',
+        'rgb(122,54,110)',
+        'rgb(22,54,110)',
+      ]
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      }
+    }
+  }
+});
+
+
 //formulario para agregar gastos o ingresos
 const taskForm = document.getElementById("task-form");
 const tasksContainer = document.getElementById("tasks-container");
@@ -65,7 +92,7 @@ const currentMonth = date.getMonth() + 1;
 const fechaComp = currentMonth + "_" + date.getFullYear();
 const fechaDiaRegistro = date.getDate();
 
-let mesActual = new Intl.DateTimeFormat('es-ES', { month: 'long'}).format(new Date());
+let mesActual = new Intl.DateTimeFormat('es-ES', { month: 'long' }).format(new Date());
 //console.log(mesActual)
 
 
@@ -148,6 +175,9 @@ window.addEventListener("DOMContentLoaded", async (e) => {
     tasksContainer.innerHTML = "";
 
     const arr = [];
+    const arrcanvasCategorias = [];
+    const arrcanvasSumatoria = [];
+
     querySnapshot.forEach((doc) => {
       const task = doc.data();
 
@@ -156,8 +186,27 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
       if (task.title == "Gastos") {
         let myString = parseFloat(task.cantidad);
-
+        // console.log(task.category)
+        //console.log(myString)
         arr.push(myString);
+
+        arrcanvasCategorias.push(task.category);
+
+
+    //    const reducer = (accumulator, currentValue) => {
+      //    if (typeof (accumulator[currentValue]) == 'undefined') {
+        //    accumulator[currentValue] = 0
+           
+          //}
+          //accumulator[currentValue] += 1
+         
+          //return accumulator 
+       // };
+      //  console.log(arrcanvasCategorias.reduce(reducer, {}));
+    
+        console.log(arrcanvasCategorias)
+        
+
       } else {
 
       }
@@ -186,9 +235,10 @@ window.addEventListener("DOMContentLoaded", async (e) => {
     });
 
     let total = arr.reduce((a, b) => a + b, 0);
-
+   // console.log(arrcanvas)
     tasksContainer.innerHTML += `<tr><td>Total</td><td>$` + total.toLocaleString('es-MX') + `</td><td></td><td></tr>`
 
+    
     //console.log(arr.length)
 
     const btnsDelete = tasksContainer.querySelectorAll(".btn-delete");
@@ -472,14 +522,14 @@ menu3.addEventListener("click", async (e) => {
     })
   });
 
-    //octubre
-    onGetAnual10((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        const task = doc.data();
-  
-        arrtotal.push(task);
-      })
-    });
+  //octubre
+  onGetAnual10((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      const task = doc.data();
+
+      arrtotal.push(task);
+    })
+  });
 
   //noviembre
   onGetAnual11((querySnapshot) => {
@@ -539,7 +589,7 @@ taskForm.addEventListener("submit", async (e) => {
 
   try {
     if (!editStatus) {
-      await saveTask(fechaDiaRegistro, title.value, categoria.value, description.value, cantidad.value, mesActual,  uid);
+      await saveTask(fechaDiaRegistro, title.value, categoria.value, description.value, cantidad.value, mesActual, uid);
       //esto sirve para sumar ingreso a mi total
 
 
