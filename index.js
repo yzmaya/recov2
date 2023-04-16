@@ -33,31 +33,7 @@ import {
 } from "./firebase.js";
 
 
-var ctx = document.getElementById('myChart').getContext("2d");
-var myChart = new Chart(ctx, {
-  type: "pie",
-  data: {
-    labels: ['Alimentos', 'Transporte', 'Entretenimiento', 'Educación'],
-    datasets: [{
-      label: 'cantidad gastada',
-      data: [10, 9, 13, 10],
-      backgroundColor: [
-        'rgb(66,134,244)',
-        'rgb(250,412,120)',
-        'rgb(122,54,110)',
-        'rgb(22,54,110)',
-      ]
-    }]
-  },
-  options: {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top',
-      }
-    }
-  }
-});
+
 
 
 //formulario para agregar gastos o ingresos
@@ -176,42 +152,33 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
     const arr = [];
     const arrcanvasCategorias = [];
-    const arrcanvasSumatoria = [];
+    const arrcanvasCategoriasytotales = [];
+
 
     querySnapshot.forEach((doc) => {
       const task = doc.data();
 
       // const sumatotal = ;
 
-
+      
       if (task.title == "Gastos") {
         let myString = parseFloat(task.cantidad);
         // console.log(task.category)
         //console.log(myString)
         arr.push(myString);
 
-        arrcanvasCategorias.push(task.category);
+       arrcanvasCategorias.push(task.category);
+        arrcanvasCategoriasytotales.push({categoria: task.category, total: task.cantidad});
 
 
-    //    const reducer = (accumulator, currentValue) => {
-      //    if (typeof (accumulator[currentValue]) == 'undefined') {
-        //    accumulator[currentValue] = 0
-           
-          //}
-          //accumulator[currentValue] += 1
-         
-          //return accumulator 
-       // };
-      //  console.log(arrcanvasCategorias.reduce(reducer, {}));
-    
-        console.log(arrcanvasCategorias)
+   
         
 
       } else {
 
       }
 
-
+      
       tasksContainer.innerHTML += `
       <tr >
          
@@ -236,6 +203,78 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
     let total = arr.reduce((a, b) => a + b, 0);
    // console.log(arrcanvas)
+   const arrultcat = [];
+   const arrultotales = [];
+ const rta = arrcanvasCategoriasytotales
+ .map(item => item.categoria)
+ .reduce((obj, categoria, indice) => {
+ 
+
+    if(obj[categoria]){
+
+      obj[categoria] =  obj[categoria] + parseInt(arrcanvasCategoriasytotales[indice].total);
+     
+     // console.log(indice)
+    
+     } 
+     else {
+      
+      obj[categoria] =  parseInt(arrcanvasCategoriasytotales[indice].total) ;
+      
+      
+    
+     }
+
+    
+    
+     return obj;
+    
+
+ }, []);
+
+ 
+//console.log(arrultcat)
+//console.log(rta)
+
+// Obteniendo todas las claves del JSON
+for (var clave in rta){
+  // Controlando que json realmente tenga esa propiedad
+  if (rta.hasOwnProperty(clave)) {
+    // Mostrando en pantalla la clave junto a su valor
+    //alert("La clave es " + clave+ " y el valor es " + rta[clave]);
+    arrultcat.push(clave);
+    arrultotales.push(rta[clave])
+
+  }
+}
+//console.log(arrultotales)
+var ctx = document.getElementById('myChart').getContext("2d");
+var myChart = new Chart(ctx, {
+  type: "pie",
+  data: {
+    labels: arrultcat,
+    datasets: [{
+      label: 'cantidad gastada $',
+      data: arrultotales,
+      backgroundColor: [
+        'rgb(66,134,244)',
+        'rgb(250,412,120)',
+        'rgb(122,54,110)',
+        'rgb(22,54,110)',
+      ]
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      }
+    }
+  }
+});
+
+
     tasksContainer.innerHTML += `<tr><td>Total</td><td>$` + total.toLocaleString('es-MX') + `</td><td></td><td></tr>`
 
     
