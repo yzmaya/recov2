@@ -48,6 +48,10 @@ const botonCerrar = document.getElementById("cerrar");
 const botonVerTodo = document.getElementById("miVerTodo");
 
 
+//mostrar graficos del dia y del mes
+const verGraficoDia = document.getElementById("VERDIA");
+const verGraficoMes = document.getElementById("VERMES");
+
 //formulario para agregar una nueva categoria
 const taskForm3 = document.getElementById("task-form3");
 const tasksContainerCategory = document.getElementById("task-category");
@@ -85,6 +89,18 @@ botonCerrar.addEventListener("click", async (e) => {
   } catch (error) {
     console.log(error);
   }
+});
+
+verGraficoMes.addEventListener("click", async (e) => {
+  e.preventDefault();
+
+  detonar2();
+});
+
+verGraficoDia.addEventListener("click", async (e) => {
+  e.preventDefault();
+
+  detonar();
 });
 
 
@@ -145,7 +161,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
 
 
-
+  detonar();
   // const querySnapshotu = await q;
   onGetDia((querySnapshot) => {
     tasksContainer.innerHTML = "";
@@ -160,24 +176,24 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
       // const sumatotal = ;
 
-      
+
       if (task.title == "Gastos") {
         let myString = parseFloat(task.cantidad);
         // console.log(task.category)
         //console.log(myString)
         arr.push(myString);
 
-       arrcanvasCategorias.push(task.category);
-        arrcanvasCategoriasytotales.push({categoria: task.category, total: task.cantidad});
+        arrcanvasCategorias.push(task.category);
+        arrcanvasCategoriasytotales.push({ categoria: task.category, total: task.cantidad });
 
         localStorage.setItem("key", JSON.stringify(arrcanvasCategoriasytotales));
-    
+
 
       } else {
 
       }
 
-      
+
       tasksContainer.innerHTML += `
       <tr >
          
@@ -201,14 +217,14 @@ window.addEventListener("DOMContentLoaded", async (e) => {
     });
 
     let total = arr.reduce((a, b) => a + b, 0);
-   // console.log(arrcanvas)
- 
-//console.log(arrultotales)
+    // console.log(arrcanvas)
+
+    //console.log(arrultotales)
 
 
     tasksContainer.innerHTML += `<tr><td>Total</td><td>$` + total.toLocaleString('es-MX') + `</td><td></td><td></tr>`
 
-    detonar();
+
     //console.log(arr.length)
 
     const btnsDelete = tasksContainer.querySelectorAll(".btn-delete");
@@ -239,7 +255,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
 
           await deleteTask(dataset.id);
-
+          detonar();
         } catch (error) {
           console.log(error);
         }
@@ -257,6 +273,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
           taskForm["task-description"].value = task.description;
           taskForm["task-number"].value = task.cantidad;
           localStorage.setItem('numeroViejito', parseFloat(task.cantidad));
+          
           editStatus = true;
           id = doc.id;
           taskForm["btn-task-form"].innerText = "Actualizar";
@@ -275,6 +292,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
   onGetMes((querySnapshot) => {
     tasksContainer2.innerHTML = "";
     const arr2 = [];
+    const arrcanvasgetmes = [];
 
     //ir a mi div para editar
     querySnapshot.forEach((doc) => {
@@ -285,6 +303,14 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
 
         arr2.push(myString);
+
+
+        arrcanvasgetmes.push({ categoria: task.category, total: task.cantidad });
+       // console.log(arrcanvasgetmes)
+
+        localStorage.setItem("key2", JSON.stringify(arrcanvasgetmes));
+
+
       } else {
 
       }
@@ -314,7 +340,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
     let total = arr2.reduce((a, b) => a + b, 0);
 
     tasksContainer2.innerHTML += `<tr><td>Total</td><td></td><td></td><td>$` + total.toLocaleString('es-MX') + `</td><td></td><td></td></tr>`
-
+    //sdetonar2();
     var totalActual = parseFloat(obtctag) - total;
     document.getElementById('totalCuenta').innerHTML = "$" + totalActual.toLocaleString('es-MX');
 
@@ -342,6 +368,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
             })
             await deleteTask(dataset.id);
+            detonar2()
           } else {
 
           }
@@ -350,6 +377,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
 
           await deleteTask(dataset.id);
+          detonar2()
         } catch (error) {
           console.log(error);
         }
@@ -370,6 +398,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
           editStatus = true;
           id = doc.id;
+          detonar2()
           taskForm["btn-task-form"].innerText = "Actualizar";
         } catch (error) {
           console.log(error);
@@ -521,61 +550,61 @@ menu3.addEventListener("click", async (e) => {
 });
 let myChart;
 
-function detonar(){
+function detonar() {
 
   var micat = JSON.parse(localStorage.getItem("key"));
-//console.log(micat)
+  //console.log(micat)
 
 
   const arrultcat = [];
-   const arrultotales = [];
- const rta = micat
- .map(item => item.categoria)
- .reduce((obj, categoria, indice) => {
- 
+  const arrultotales = [];
+  const rta = micat
+    .map(item => item.categoria)
+    .reduce((obj, categoria, indice) => {
 
-    if(obj[categoria]){
 
-      obj[categoria] =  obj[categoria] + parseInt(micat[indice].total);
-     
-     // console.log(indice)
-    
-     } 
-     else {
-      
-      obj[categoria] =  parseInt(micat[indice].total) ;
-      
-      
-    
-     }
+      if (obj[categoria]) {
 
-    
-    
-     return obj;
-    
+        obj[categoria] = obj[categoria] + parseInt(micat[indice].total);
 
- }, []);
+        // console.log(indice)
 
- 
-//console.log(arrultcat)
-//console.log(rta)
+      }
+      else {
 
-// Obteniendo todas las claves del JSON
-for (var clave in rta){
-  // Controlando que json realmente tenga esa propiedad
-  if (rta.hasOwnProperty(clave)) {
-    // Mostrando en pantalla la clave junto a su valor
-    //alert("La clave es " + clave+ " y el valor es " + rta[clave]);
-    arrultcat.push(clave);
-    arrultotales.push(rta[clave])
+        obj[categoria] = parseInt(micat[indice].total);
 
+
+
+      }
+
+
+
+      return obj;
+
+
+    }, []);
+
+
+  //console.log(arrultcat)
+  //console.log(rta)
+
+  // Obteniendo todas las claves del JSON
+  for (var clave in rta) {
+    // Controlando que json realmente tenga esa propiedad
+    if (rta.hasOwnProperty(clave)) {
+      // Mostrando en pantalla la clave junto a su valor
+      //alert("La clave es " + clave+ " y el valor es " + rta[clave]);
+      arrultcat.push(clave);
+      arrultotales.push(rta[clave])
+
+    }
   }
-}
 
   var ctx = document.getElementById('myChart').getContext("2d");
   if (myChart) {
     myChart.destroy();
-}
+  }
   myChart = new Chart(ctx, {
     type: "pie",
     data: {
@@ -584,10 +613,18 @@ for (var clave in rta){
         label: 'cantidad gastada $',
         data: arrultotales,
         backgroundColor: [
-          'rgb(66,134,244)',
-          'rgb(250,412,120)',
-          'rgb(122,54,110)',
-          'rgb(22,54,110)',
+          '#ED6464',
+          '#BF6370',
+          '#87586C',
+          '#574759',
+          '#1A1B1C',
+          '#6D2243',
+          '#BA2640',
+          '#EC5E0C',
+          '#F78F1E',
+          '#85871A',
+
+
         ]
       }]
     },
@@ -600,7 +637,96 @@ for (var clave in rta){
       }
     }
   });
-  
+
+}
+
+
+function detonar2() {
+
+  var micat = JSON.parse(localStorage.getItem("key2"));
+  //console.log(micat)
+
+
+  const arrultcat = [];
+  const arrultotales = [];
+  const rta = micat
+    .map(item => item.categoria)
+    .reduce((obj, categoria, indice) => {
+
+
+      if (obj[categoria]) {
+
+        obj[categoria] = obj[categoria] + parseInt(micat[indice].total);
+
+        // console.log(indice)
+
+      }
+      else {
+
+        obj[categoria] = parseInt(micat[indice].total);
+
+
+
+      }
+
+
+
+      return obj;
+
+
+    }, []);
+
+
+  //console.log(arrultcat)
+  //console.log(rta)
+
+  // Obteniendo todas las claves del JSON
+  for (var clave in rta) {
+    // Controlando que json realmente tenga esa propiedad
+    if (rta.hasOwnProperty(clave)) {
+      // Mostrando en pantalla la clave junto a su valor
+      //alert("La clave es " + clave+ " y el valor es " + rta[clave]);
+      arrultcat.push(clave);
+      arrultotales.push(rta[clave])
+
+    }
+  }
+
+  var ctx = document.getElementById('myChart').getContext("2d");
+  if (myChart) {
+    myChart.destroy();
+  }
+  myChart = new Chart(ctx, {
+    type: "pie",
+    data: {
+      labels: arrultcat,
+      datasets: [{
+        label: 'cantidad gastada $',
+        data: arrultotales,
+        backgroundColor: [
+          '#ED6464',
+          '#BF6370',
+          '#87586C',
+          '#574759',
+          '#1A1B1C',
+          '#6D2243',
+          '#BA2640',
+          '#EC5E0C',
+          '#F78F1E',
+          '#85871A',
+        ]
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        }
+      }
+    }
+  });
+
 }
 
 botonVerTodo.addEventListener("click", async (e) => {
@@ -643,8 +769,8 @@ taskForm.addEventListener("submit", async (e) => {
     if (!editStatus) {
       await saveTask(fechaDiaRegistro, title.value, categoria.value, description.value, cantidad.value, mesActual, uid);
       //esto sirve para sumar ingreso a mi total
-      
 
+      detonar();
       if (title.value == "Ingresos") {
         const ctaG = await getTotalCtaGral();
         const obtctag = ctaG.data().presupuesto;
@@ -669,7 +795,7 @@ taskForm.addEventListener("submit", async (e) => {
       }
 
     } else {
-   
+
       await updateTask(id, {
         title: title.value,
         category: categoria.value,
@@ -677,8 +803,8 @@ taskForm.addEventListener("submit", async (e) => {
         cantidad: cantidad.value,
 
       });
+      detonar();
 
-     
       //si hay que modificar el ingreso, se debe restar el monto actual y sumar 
       if (title.value == "Ingresos") {
         const ctaG = await getTotalCtaGral();
