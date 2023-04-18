@@ -170,9 +170,8 @@ window.addEventListener("DOMContentLoaded", async (e) => {
        arrcanvasCategorias.push(task.category);
         arrcanvasCategoriasytotales.push({categoria: task.category, total: task.cantidad});
 
-
-   
-        
+        localStorage.setItem("key", JSON.stringify(arrcanvasCategoriasytotales));
+    
 
       } else {
 
@@ -203,81 +202,13 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
     let total = arr.reduce((a, b) => a + b, 0);
    // console.log(arrcanvas)
-   const arrultcat = [];
-   const arrultotales = [];
- const rta = arrcanvasCategoriasytotales
- .map(item => item.categoria)
- .reduce((obj, categoria, indice) => {
  
-
-    if(obj[categoria]){
-
-      obj[categoria] =  obj[categoria] + parseInt(arrcanvasCategoriasytotales[indice].total);
-     
-     // console.log(indice)
-    
-     } 
-     else {
-      
-      obj[categoria] =  parseInt(arrcanvasCategoriasytotales[indice].total) ;
-      
-      
-    
-     }
-
-    
-    
-     return obj;
-    
-
- }, []);
-
- 
-//console.log(arrultcat)
-//console.log(rta)
-
-// Obteniendo todas las claves del JSON
-for (var clave in rta){
-  // Controlando que json realmente tenga esa propiedad
-  if (rta.hasOwnProperty(clave)) {
-    // Mostrando en pantalla la clave junto a su valor
-    //alert("La clave es " + clave+ " y el valor es " + rta[clave]);
-    arrultcat.push(clave);
-    arrultotales.push(rta[clave])
-
-  }
-}
 //console.log(arrultotales)
-var ctx = document.getElementById('myChart').getContext("2d");
-var myChart = new Chart(ctx, {
-  type: "pie",
-  data: {
-    labels: arrultcat,
-    datasets: [{
-      label: 'cantidad gastada $',
-      data: arrultotales,
-      backgroundColor: [
-        'rgb(66,134,244)',
-        'rgb(250,412,120)',
-        'rgb(122,54,110)',
-        'rgb(22,54,110)',
-      ]
-    }]
-  },
-  options: {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top',
-      }
-    }
-  }
-});
 
 
     tasksContainer.innerHTML += `<tr><td>Total</td><td>$` + total.toLocaleString('es-MX') + `</td><td></td><td></tr>`
 
-    
+    detonar();
     //console.log(arr.length)
 
     const btnsDelete = tasksContainer.querySelectorAll(".btn-delete");
@@ -588,7 +519,89 @@ menu3.addEventListener("click", async (e) => {
 
   //se termina evento click 
 });
+let myChart;
 
+function detonar(){
+
+  var micat = JSON.parse(localStorage.getItem("key"));
+//console.log(micat)
+
+
+  const arrultcat = [];
+   const arrultotales = [];
+ const rta = micat
+ .map(item => item.categoria)
+ .reduce((obj, categoria, indice) => {
+ 
+
+    if(obj[categoria]){
+
+      obj[categoria] =  obj[categoria] + parseInt(micat[indice].total);
+     
+     // console.log(indice)
+    
+     } 
+     else {
+      
+      obj[categoria] =  parseInt(micat[indice].total) ;
+      
+      
+    
+     }
+
+    
+    
+     return obj;
+    
+
+ }, []);
+
+ 
+//console.log(arrultcat)
+//console.log(rta)
+
+// Obteniendo todas las claves del JSON
+for (var clave in rta){
+  // Controlando que json realmente tenga esa propiedad
+  if (rta.hasOwnProperty(clave)) {
+    // Mostrando en pantalla la clave junto a su valor
+    //alert("La clave es " + clave+ " y el valor es " + rta[clave]);
+    arrultcat.push(clave);
+    arrultotales.push(rta[clave])
+
+  }
+}
+
+  var ctx = document.getElementById('myChart').getContext("2d");
+  if (myChart) {
+    myChart.destroy();
+}
+  myChart = new Chart(ctx, {
+    type: "pie",
+    data: {
+      labels: arrultcat,
+      datasets: [{
+        label: 'cantidad gastada $',
+        data: arrultotales,
+        backgroundColor: [
+          'rgb(66,134,244)',
+          'rgb(250,412,120)',
+          'rgb(122,54,110)',
+          'rgb(22,54,110)',
+        ]
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        }
+      }
+    }
+  });
+  
+}
 
 botonVerTodo.addEventListener("click", async (e) => {
   e.preventDefault();
@@ -630,7 +643,7 @@ taskForm.addEventListener("submit", async (e) => {
     if (!editStatus) {
       await saveTask(fechaDiaRegistro, title.value, categoria.value, description.value, cantidad.value, mesActual, uid);
       //esto sirve para sumar ingreso a mi total
-
+      
 
       if (title.value == "Ingresos") {
         const ctaG = await getTotalCtaGral();
@@ -656,6 +669,7 @@ taskForm.addEventListener("submit", async (e) => {
       }
 
     } else {
+   
       await updateTask(id, {
         title: title.value,
         category: categoria.value,
@@ -663,6 +677,8 @@ taskForm.addEventListener("submit", async (e) => {
         cantidad: cantidad.value,
 
       });
+
+     
       //si hay que modificar el ingreso, se debe restar el monto actual y sumar 
       if (title.value == "Ingresos") {
         const ctaG = await getTotalCtaGral();
