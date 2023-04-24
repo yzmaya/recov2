@@ -161,7 +161,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
 
 
-  detonar();
+ // detonar();
   // const querySnapshotu = await q;
   onGetDia((querySnapshot) => {
     tasksContainer.innerHTML = "";
@@ -186,7 +186,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
         arrcanvasCategorias.push(task.category);
         arrcanvasCategoriasytotales.push({ categoria: task.category, total: task.cantidad });
 
-        localStorage.setItem("key", JSON.stringify(arrcanvasCategoriasytotales));
+        
 
 
       } else {
@@ -220,7 +220,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
     // console.log(arrcanvas)
 
     //console.log(arrultotales)
-
+    localStorage.setItem("key", JSON.stringify(arrcanvasCategoriasytotales));
 
     tasksContainer.innerHTML += `<tr><td>Total</td><td>$` + total.toLocaleString('es-MX') + `</td><td></td><td></tr>`
 
@@ -308,7 +308,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
         arrcanvasgetmes.push({ categoria: task.category, total: task.cantidad });
        // console.log(arrcanvasgetmes)
 
-        localStorage.setItem("key2", JSON.stringify(arrcanvasgetmes));
+   
 
 
       } else {
@@ -343,7 +343,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
     //sdetonar2();
     var totalActual = parseFloat(obtctag) - total;
     document.getElementById('totalCuenta').innerHTML = "$" + totalActual.toLocaleString('es-MX');
-
+    localStorage.setItem("key2", JSON.stringify(arrcanvasgetmes));
     //obtener el total del mes, para actualizar en el navbar de total
     localStorage.setItem('arreglo2', total);
 
@@ -874,3 +874,4 @@ taskForm3.addEventListener("submit", async (e) => {
 
 
 
+detonar();
