@@ -873,5 +873,6 @@ taskForm3.addEventListener("submit", async (e) => {
 
 
 
-
-detonar();
+window.addEventListener('load', function() {
+  detonar();
+});
