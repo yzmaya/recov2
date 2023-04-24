@@ -94,13 +94,13 @@ botonCerrar.addEventListener("click", async (e) => {
 verGraficoMes.addEventListener("click", async (e) => {
   e.preventDefault();
 
- // detonar2();
+  detonar2();
 });
 
 verGraficoDia.addEventListener("click", async (e) => {
   e.preventDefault();
 
- // detonar();
+  detonar();
 });
 
 
@@ -161,7 +161,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
 
 
- // detonar();
+  detonar();
   // const querySnapshotu = await q;
   onGetDia((querySnapshot) => {
     tasksContainer.innerHTML = "";
@@ -255,7 +255,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
 
           await deleteTask(dataset.id);
-       //   detonar();
+          detonar();
         } catch (error) {
           console.log(error);
         }
@@ -368,7 +368,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
             })
             await deleteTask(dataset.id);
-           // detonar2()
+            detonar2()
           } else {
 
           }
@@ -377,7 +377,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
 
           await deleteTask(dataset.id);
-          //detonar2()
+          detonar2()
         } catch (error) {
           console.log(error);
         }
@@ -398,7 +398,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
           editStatus = true;
           id = doc.id;
-        //  detonar2()
+          detonar2()
           taskForm["btn-task-form"].innerText = "Actualizar";
         } catch (error) {
           console.log(error);
@@ -600,7 +600,7 @@ function detonar() {
 
     }
   }
-/*
+
   var ctx = document.getElementById('myChart').getContext("2d");
   if (myChart) {
     myChart.destroy();
@@ -637,7 +637,7 @@ function detonar() {
       }
     }
   });
-*/
+
 }
 
 
@@ -691,7 +691,7 @@ function detonar2() {
 
     }
   }
-/*
+
   var ctx = document.getElementById('myChart').getContext("2d");
   if (myChart) {
     myChart.destroy();
@@ -726,7 +726,7 @@ function detonar2() {
       }
     }
   });
-*/
+
 }
 
 botonVerTodo.addEventListener("click", async (e) => {
@@ -770,7 +770,7 @@ taskForm.addEventListener("submit", async (e) => {
       await saveTask(fechaDiaRegistro, title.value, categoria.value, description.value, cantidad.value, mesActual, uid);
       //esto sirve para sumar ingreso a mi total
 
-   //   detonar();
+      detonar();
       if (title.value == "Ingresos") {
         const ctaG = await getTotalCtaGral();
         const obtctag = ctaG.data().presupuesto;
@@ -803,7 +803,7 @@ taskForm.addEventListener("submit", async (e) => {
         cantidad: cantidad.value,
 
       });
-   //   detonar();
+      detonar();
 
       //si hay que modificar el ingreso, se debe restar el monto actual y sumar 
       if (title.value == "Ingresos") {
