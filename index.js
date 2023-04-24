@@ -600,7 +600,7 @@ function detonar() {
 
     }
   }
-
+/*
   var ctx = document.getElementById('myChart').getContext("2d");
   if (myChart) {
     myChart.destroy();
@@ -637,7 +637,7 @@ function detonar() {
       }
     }
   });
-
+*/
 }
 
 
@@ -691,7 +691,7 @@ function detonar2() {
 
     }
   }
-
+/*
   var ctx = document.getElementById('myChart').getContext("2d");
   if (myChart) {
     myChart.destroy();
@@ -726,7 +726,7 @@ function detonar2() {
       }
     }
   });
-
+*/
 }
 
 botonVerTodo.addEventListener("click", async (e) => {
