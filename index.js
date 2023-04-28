@@ -861,8 +861,9 @@ taskForm3.addEventListener("submit", async (e) => {
 
 
     taskForm3.reset();
-    taskForm["task-category"].value = '';
+    taskForm["task-category"].value = newcategory;
     alert('agregaste una nueva categoría!')
+    $('#myModale').modal('hide')
   } catch (error) {
     console.log(error);
   }
