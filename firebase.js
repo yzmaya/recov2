@@ -77,7 +77,7 @@ export const crearCuenta = (auth, email, password, nombre) =>
       console.log(userCredential.user.uid);
       localStorage.setItem("UserID", userCredential.user.uid);
       localStorage.setItem("IDname", nombre);
-      window.location.href = 'cuentas.html';
+      window.location.href = 'cuentasfirst.html';
       // console.log(IDname);
 
 

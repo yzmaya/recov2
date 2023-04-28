@@ -12,9 +12,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
- 
-  
-  
+
+
+
 </head>
 
 <!--#f1602e -->
@@ -72,10 +72,10 @@
 
   <!-- ADD TASK -->
   <div class="container ">
-    <div class="row" >
+    <div class="row">
       <div class="col-md-6" id="tasks-containerextra">
-       <!-- <img class="img-fluid rounded" src="images/undraw_accept_tasks_re_09mv.svg">-->
-       <canvas id="myChart" width="400" height="400" style="background-color: rgba(255, 255, 255,0.600)" ></canvas>
+        <!-- <img class="img-fluid rounded" src="images/undraw_accept_tasks_re_09mv.svg">-->
+        <canvas id="myChart" width="400" height="400" style="background-color: rgba(255, 255, 255,0.600)"></canvas>
       </div>
 
       <div class="col-md-6" id="FormRegistrar">
@@ -251,13 +251,13 @@
             </tbody>
 
           </table>
-          
+
         </div>
         <button id="btnExport" onclick="fnExcelReport();" class="btn btn-primary">Exportar a
           Excel</button>
       </div>
       <div id="menu2" class="container tab-pane fade"><br>
-        <button id="miVerTodo"  class="btn btn-primary btn-sm">Ver todo</button>
+        <button id="miVerTodo" class="btn btn-primary btn-sm">Ver todo</button>
         <div class="table-responsive">
           <table class="table  table-striped" id="testTable2">
             <thead>
@@ -275,7 +275,7 @@
             </tbody>
 
           </table>
-          
+
         </div>
         <button id="btnExport2" onclick="fnExcelReport2();" class="btn btn-primary">Exportar a
           Excel</button>
@@ -283,124 +283,152 @@
     </div>
   </div>
 
-<br>
+  <br>
 
-<iframe id="txtArea1" style="display:none"></iframe>
+  <iframe id="txtArea1" style="display:none"></iframe>
 
 
   <!------ Include the above in your HEAD tag ---------->
-<div class="container">
-  <div class="card border-secondary ">
-    <div class="card-header">Newsletter</div>
+  <div class="container">
+    <div class="card border-secondary ">
+      <div class="card-header">Newsletter</div>
 
-    <div class="row">
-      <div class="col-md-4">
-        <div class="card-body">
-          <h4 class="card-title">¿Deudas?</h4>
-          <p class="card-text">¿Te has preguntado si es posible pagar tus deudas o créditos, de acuerdo al CAT?</p>
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myNotice1">Seguir leyendo</button>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card-body">
+            <h4 class="card-title">¿Ya tienes tu fondo de emergencias?</h4>
+            <p class="card-text">Todos nos podemos enfrentar a emergencias imprevistas, por lo que te recomendamos que
+              tengas un fondo de emergencias con al menos de 3 a 6 meses de nuestros gastos.</p>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myNotice1">Seguir
+              leyendo</button>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card-body">
+            <h4 class="card-title">¿Cómo generar ingresos pasivos?</h4>
+            <p class="card-text">Si en éste momento no tienes capacidad de ahorrar, por que tus gastos fijos no te lo
+              permiten, entérate de como puedes empezar.</p>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myNotice2">Seguir
+              leyendo</button>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card-body">
+            <h4 class="card-title">¿Éstas listo para invertir?</h4>
+            <p class="card-text">¿Te gustaría invertir tu dinero, y recibir una tasa fija del 3% mensual? Por ejemplo si
+              inviertes $10,000 al mes recibirías $300, sin hacer nada, podrías por ejemplo pagar tu membresia con
+              Netflix! 😮 </p>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myNotice3">Hacer mi
+              cálculo</button>
+          </div>
         </div>
       </div>
 
-      <div class="col-md-4">
-        <div class="card-body">
-          <h4 class="card-title">¿Cómo empezar en el mundo de las inversiones?</h4>
-          <p class="card-text">Pon a tu dinero a trabajar por tí, y disfruta de los beneficios al largo plazo.</p>
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myNotice2">Seguir leyendo</button>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="card-body">
-          <h4 class="card-title">¡Promoción de seguro de auto!</h4>
-          <p class="card-text">Obten hasta un 30% de descuento en tu primer año de seguro de auto, con cobertura total.</p>
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myNotice3">Conoce más</button>
-        </div>
-      </div>
     </div>
-
   </div>
-</div>
   <!-- CUSTOM CODE NOTICIAS MODALES -->
-<!-- NOTICIA 1-->
-<!-- The Modal -->
-<div class="modal" id="myNotice1">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
+  <!-- NOTICIA 1-->
+  <!-- The Modal -->
+  <div class="modal" id="myNotice1">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">¿Deudas?</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">¿Ya tienes tu fondo de emergencias?</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <p>Un fondo de emergencia es una reserva de efectivo que se guarda para atender gastos no planeados o
+            emergencias financieras. Algunos ejemplos comunes de estos gastos son reparaciones al coche o a su vivienda,
+            facturas médicas o la pérdida de ingresos.</p>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/xS7wpRbkRkg" title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+
       </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
-        <p>¿Te has preguntado si es posible pagar tus deudas o créditos, de acuerdo al CAT?</p>
-       
-      </div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-info" data-bs-dismiss="modal">Cancelar</button>
-      </div>
-
     </div>
   </div>
-</div>
 
 
-<!-- NOTICIA 2-->
-<!-- The Modal -->
-<div class="modal" id="myNotice2">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
+  <!-- NOTICIA 2-->
+  <!-- The Modal -->
+  <div class="modal" id="myNotice2">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">¿Cómo empezar en el mundo de las inversiones?</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">¿Cómo generar ingresos pasivos?</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <p>El ingreso pasivo es un tipo de ingreso no ganado que se adquiere automáticamente con un trabajo mínimo
+            para ganar o mantener. A menudo se combina con otra fuente de ingresos, como un trabajo adicional.</p>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/lugETBcmV28" title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+
       </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
-       <p>Pon a tu dinero a trabajar por tí, y disfruta de los beneficios al largo plazo.</p>
-      </div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-info" data-bs-dismiss="modal">Cancelar</button>
-      </div>
-
     </div>
   </div>
-</div>
 
-<!-- NOTICIA 3-->
-<!-- The Modal -->
-<div class="modal" id="myNotice3">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
+  <!-- NOTICIA 3-->
+  <!-- The Modal -->
+  <div class="modal" id="myNotice3">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">¡Promoción de seguro de auto!</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">¿Éstas listo para invertir?</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <p>Cálcula el monto que quieres invertir, y verás los rendimientos que podrías obtener, ni los pagarés, ni los
+            cetes podrían llegar a tan jugosa propuesta.</p>
+          <label for="description">Coloca el monto que quieres calcular:</label>
+
+
+          <input type="number" class="form-control mb-2" placeholder="$" name="cantidad"
+            onKeyPress="return onKeyPressBlockChars(event,this.value);" onKeyUp="calculaPorcentajes(this.value)">
+          <input type="text" class="form-control mb-2" name="porcent60" id="porcent60" disabled>
+          <br>
+          <strong>Si estás listo para ganar de manera segura, contactanos:</strong>
+          <br>
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="mandarmsj()">Whatsapp</button>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+
       </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
-       <p>Obten hasta un 30% de descuento en tu primer año de seguro de auto, con cobertura total.</p>
-      </div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-info" data-bs-dismiss="modal">Cancelar</button>
-      </div>
-
     </div>
   </div>
-</div>
 
 
   <script type="module" src="./index.js" type="module"></script>
@@ -408,78 +436,99 @@
 
   <script type="text/javascript">
 
-let mesActual = new Intl.DateTimeFormat('es-ES', { month: 'long'}).format(new Date());
-document.getElementById('mesEnCurso').innerHTML = mesActual;
-  function fnExcelReport()
-{
-    var tab_text="<table border='2px'><tr bgcolor='#87AFC6'>";
-    var textRange; var j=0;
-    tab = document.getElementById('testTable'); // id of table
-
-    for(j = 0 ; j < tab.rows.length ; j++) 
-    {     
-        tab_text=tab_text+tab.rows[j].innerHTML+"</tr>";
-        //tab_text=tab_text+"</tr>";
+    function mandarmsj(){
+      window.location.href = "https://api.whatsapp.com/send?phone=+5215528513214&text=Hola,%20me%20interesa%20saber%20m%C3%A1s%20sobre%20las%20inversiones%20seguras%20del%203%25";
     }
 
-    tab_text=tab_text+"</table>";
-    tab_text= tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
-    tab_text= tab_text.replace(/<img[^>]*>/gi,""); // remove if u want images in your table
-    tab_text= tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+    function onKeyPressBlockChars(e, numero) {
+      var key = window.event ? e.keyCode : e.which;
+      var keychar = String.fromCharCode(key);
+      reg = /\d|\./;
+      if (numero.indexOf(".") != -1 && keychar == ".") {
+        return false;
+      } else {
+        return reg.test(keychar);
+      }
+    }
+    function calculaPorcentajes(numero) {
 
-    var ua = window.navigator.userAgent;
-    var msie = ua.indexOf("MSIE "); 
 
-    if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
-    {
-        txtArea1.document.open("txt/html","replace");
-        txtArea1.document.write(tab_text);
-        txtArea1.document.close();
-        txtArea1.focus(); 
-        sa=txtArea1.document.execCommand("SaveAs",true,"Say Thanks to Sumit.xls");
-    }  
-    else                 //other browser not tested on IE 11
-        sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));  
+      var temp = Math.floor(numero * 3) / 100;
+      console.log(temp.toLocaleString('es-MX'))
+      document.getElementById("porcent60").value = 'tu ganancia al mes es de: $' + temp.toLocaleString('es-MX')
 
-    return (sa);
-}
-
-//exportar a excel el reporte del año
-
-function fnExcelReport2()
-{
-    var tab_text="<table border='2px'><tr bgcolor='#87AFC6'>";
-    var textRange; var j=0;
-    tab = document.getElementById('testTable2'); // id of table
-
-    for(j = 0 ; j < tab.rows.length ; j++) 
-    {     
-        tab_text=tab_text+tab.rows[j].innerHTML+"</tr>";
-        //tab_text=tab_text+"</tr>";
     }
 
-    tab_text=tab_text+"</table>";
-    tab_text= tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
-    tab_text= tab_text.replace(/<img[^>]*>/gi,""); // remove if u want images in your table
-    tab_text= tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
 
-    var ua = window.navigator.userAgent;
-    var msie = ua.indexOf("MSIE "); 
 
-    if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
-    {
-        txtArea1.document.open("txt/html","replace");
+    let mesActual = new Intl.DateTimeFormat('es-ES', { month: 'long' }).format(new Date());
+    document.getElementById('mesEnCurso').innerHTML = mesActual;
+    function fnExcelReport() {
+      var tab_text = "<table border='2px'><tr bgcolor='#87AFC6'>";
+      var textRange; var j = 0;
+      tab = document.getElementById('testTable'); // id of table
+
+      for (j = 0; j < tab.rows.length; j++) {
+        tab_text = tab_text + tab.rows[j].innerHTML + "</tr>";
+        //tab_text=tab_text+"</tr>";
+      }
+
+      tab_text = tab_text + "</table>";
+      tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+      tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
+      tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+      var ua = window.navigator.userAgent;
+      var msie = ua.indexOf("MSIE ");
+
+      if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+      {
+        txtArea1.document.open("txt/html", "replace");
         txtArea1.document.write(tab_text);
         txtArea1.document.close();
-        txtArea1.focus(); 
-        sa=txtArea1.document.execCommand("SaveAs",true,"Say Thanks to Sumit.xls");
-    }  
-    else                 //other browser not tested on IE 11
-        sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));  
+        txtArea1.focus();
+        sa = txtArea1.document.execCommand("SaveAs", true, "Say Thanks to Sumit.xls");
+      }
+      else                 //other browser not tested on IE 11
+        sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
 
-    return (sa);
-}
-    </script>
+      return (sa);
+    }
+
+    //exportar a excel el reporte del año
+
+    function fnExcelReport2() {
+      var tab_text = "<table border='2px'><tr bgcolor='#87AFC6'>";
+      var textRange; var j = 0;
+      tab = document.getElementById('testTable2'); // id of table
+
+      for (j = 0; j < tab.rows.length; j++) {
+        tab_text = tab_text + tab.rows[j].innerHTML + "</tr>";
+        //tab_text=tab_text+"</tr>";
+      }
+
+      tab_text = tab_text + "</table>";
+      tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+      tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
+      tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+      var ua = window.navigator.userAgent;
+      var msie = ua.indexOf("MSIE ");
+
+      if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+      {
+        txtArea1.document.open("txt/html", "replace");
+        txtArea1.document.write(tab_text);
+        txtArea1.document.close();
+        txtArea1.focus();
+        sa = txtArea1.document.execCommand("SaveAs", true, "Say Thanks to Sumit.xls");
+      }
+      else                 //other browser not tested on IE 11
+        sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
+
+      return (sa);
+    }
+  </script>
 
   <script>
     //exportar a excel
@@ -507,8 +556,8 @@ function fnExcelReport2()
   </script>
 
 
-<!--SCRIPT DE CANVAS PARA GRAFICAR-->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+  <!--SCRIPT DE CANVAS PARA GRAFICAR-->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
 </body>
 
 </html>
