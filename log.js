@@ -15,6 +15,15 @@ const formIniciarSesion = document.getElementById("signup-form");
 const formRecuperarContrasena = document.getElementById("signup-form3");
 
 
+const scriptURL = 'https://script.google.com/macros/s/AKfycbxmpyAUjGHNcER3TIFjWQt8SC2Anwdgt6mUteJaKfdlhbOuQSdUq7aYmu-T-L54m8g_Hg/exec'
+const form = document.forms['submit-form']
+console.log(form)
+form.addEventListener('submit', e => {
+  e.preventDefault()
+  fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+    .then(response => console.log('Success!', response))
+    .catch(error => console.error('Error!', error.message))
+})
 // inicio de sesión
 
 formIniciarSesion.addEventListener("submit", async (e) => {
@@ -41,6 +50,8 @@ formIniciarSesion.addEventListener("submit", async (e) => {
 
 
 
+    
+ 
 //crear cuenta de inicio de sesión
 
 formCrearCuenta.addEventListener("submit", async (e) => {
@@ -54,6 +65,7 @@ formCrearCuenta.addEventListener("submit", async (e) => {
   try {
     //  console.log(correo.value)
     //console.log(contrasena.value)
+  
 
 
     //return nombre;
@@ -76,7 +88,7 @@ formRecuperarContrasena.addEventListener("submit", async (e) => {
   var x = document.getElementById("notRecuperaCon");
 
 
-  const correo = formRecuperarContrasena["email3"];
+  const correo = formRecuperarContrasena["email3"].value;
 
   if (x.style.display === "none") {
     x.style.display = "block";
@@ -91,7 +103,7 @@ formRecuperarContrasena.addEventListener("submit", async (e) => {
     //console.log(correo.value)
     //  console.log(contrasena.value)
     // localStorage.setItem("IDname", nombre.value);
-    await recuperarContrasena(auth, correo.value)
+    await recuperarContrasena(auth, correo)
 
 
   } catch (error) {
