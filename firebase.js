@@ -233,8 +233,8 @@ const miDiaInteger = date.getDate();
 //console.log(currentMonth)
 
 //guardar una tarea
-export const saveTask = (date, title, category, description, cantidad, mesActual, uid) =>
-  addDoc(collection(db, usuarioRaiz + "/" + fechaMes), { date, title, category, description, cantidad, mesActual, uid });
+export const saveTask = (date, title, category, description, cantidad, mesActual, mesActualTemp, uid) =>
+addDoc(collection(db, usuarioRaiz + "/" + mesActualTemp), { date, title, category, description, cantidad, mesActual, mesActualTemp, uid });
 
 //guardar una nueva categoria
 export const saveCat = (categoria) =>

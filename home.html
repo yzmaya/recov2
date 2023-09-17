@@ -84,6 +84,14 @@
             <h1 class="h4">Registrar</h1>
 
             <form id="task-form">
+
+              <label for="title">Fecha:</label>
+
+              <!-- Campo de fecha -->
+              <input type="date" class="form-control mb-2" id="mifecha">
+
+
+
               <label for="title">Actividad:</label>
 
 
@@ -435,6 +443,28 @@
 
 
   <script type="text/javascript">
+
+const date = new Date();  // Supongamos que tienes la fecha en una variable llamada "date"
+
+// Ajusta la fecha al huso horario de México (GMT-5)
+date.setHours(date.getHours() - 5);
+
+const day = date.getDate().toString().padStart(2, '0');  // Día en formato dd
+const month = (date.getMonth() + 1).toString().padStart(2, '0');  // Mes en formato MM
+const year = date.getFullYear();  // Año en formato yyyy
+
+// Formatea la fecha en el formato "yyyy-MM-dd"
+const formattedDate = `${year}-${month}-${day}`;
+
+// Obtiene la referencia al campo de fecha
+const mifechaInput = document.getElementById('mifecha');
+
+// Asigna el valor al campo de fecha (con formato "yyyy-MM-dd")
+mifechaInput.value = formattedDate;
+
+console.log("Fecha formateada:", formattedDate);
+
+
 
     function mandarmsj(){
       window.location.href = "https://api.whatsapp.com/send?phone=+5215528513214&text=Hola,%20me%20interesa%20saber%20m%C3%A1s%20sobre%20las%20inversiones%20seguras%20del%203%25";

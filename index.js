@@ -70,13 +70,57 @@ const date = new Date();
 const currentMonth = date.getMonth() + 1;
 //const fechaComp = date.getFullYear() + "/" + currentMonth + "/" + date.getDate();
 const fechaComp = currentMonth + "_" + date.getFullYear();
-const fechaDiaRegistro = date.getDate();
 
-let mesActual = new Intl.DateTimeFormat('es-ES', { month: 'long' }).format(new Date());
+
+
 //console.log(mesActual)
 
 
-console.log(fechaComp);
+let fechaDiaRegistro = date.getDate();  // Inicializar con el día de hoy
+let mesActual = new Intl.DateTimeFormat('es-ES', { month: 'long' }).format(date);  // Inicializar con el mes de hoy
+let mesActualTemp = currentMonth + "_" + date.getFullYear();
+const mifechaInput = document.getElementById('mifecha');
+
+
+
+// Escuchar cambios en el campo de fecha
+mifechaInput.addEventListener('change', (e) => {
+
+
+
+
+
+  const selectedDate = new Date(`${e.target.value}T00:00:00`); // Si
+  // const PrototypeDate = new Date(`${date}`); // No
+
+
+  const selectedDay = selectedDate.getDate();
+
+  const selectedMonth = selectedDate.getMonth() + 1; // Sumamos 1 ya que los meses en JavaScript van de 0 a 11
+
+  const day = selectedDate.getDate();
+  const month = selectedDate.getMonth() + 1;
+  const year = selectedDate.getFullYear();
+  const superResult = String(day) + "/" + String(month) + "/" + String(year);
+ // console.log("superResult: ", superResult)
+
+
+  // Validar si el día seleccionado es válido en el mes seleccionado
+  const lastDayOfMonth = new Date(selectedDate.getFullYear(), selectedMonth, 0).getDate();
+
+  if (selectedDay <= lastDayOfMonth) {
+    fechaDiaRegistro = selectedDay;
+    mesActual = new Intl.DateTimeFormat('es-ES', { month: 'long' }).format(selectedDate);
+    mesActualTemp = String(month) + '_' + date.getFullYear();
+    // Mostrar la fecha seleccionada
+ //   console.log(`Fecha seleccionada: ${fechaDiaRegistro} de ${mesActual}`);
+   // console.log(mesActualTemp)
+  } else {
+    // El día seleccionado no es válido en el mes, mostrar un mensaje de error
+    console.error('Día no válido en el mes seleccionado');
+
+  }
+});
 
 botonCerrar.addEventListener("click", async (e) => {
   e.preventDefault();
@@ -161,7 +205,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
 
 
- // detonar();
+  // detonar();
   // const querySnapshotu = await q;
   onGetDia((querySnapshot) => {
     tasksContainer.innerHTML = "";
@@ -186,7 +230,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
         arrcanvasCategorias.push(task.category);
         arrcanvasCategoriasytotales.push({ categoria: task.category, total: task.cantidad });
 
-        
+
 
 
       } else {
@@ -222,7 +266,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
     //console.log(arrultotales)
     localStorage.setItem("key", JSON.stringify(arrcanvasCategoriasytotales));
 
-    tasksContainer.innerHTML += `<tr><td>Total</td><td>$` + total.toLocaleString('es-MX') + `</td><td></td><td></tr>`
+    tasksContainer.innerHTML += `<tr><td>Total</td><td>$` + total.toLocaleString('es-MX') + `</td><td style='font-size: 0;' id='mytotaldia'>`+total+`</td><td></tr>`
 
 
     //console.log(arr.length)
@@ -272,8 +316,22 @@ window.addEventListener("DOMContentLoaded", async (e) => {
           taskForm["task-category"].value = task.category;
           taskForm["task-description"].value = task.description;
           taskForm["task-number"].value = task.cantidad;
+
+          const taskDate = task.date; // Suponiendo que task.date es un número que representa el día del mes
+          const year = new Date().getFullYear(); // Obtener el año actual
+          const month = new Date().getMonth() + 1; // Obtener el mes actual (se suma 1 porque en JavaScript los meses van de 0 a 11)
+          const formattedTaskDate = `${year}-${month.toString().padStart(2, '0')}-${taskDate.toString().padStart(2, '0')}`; // Formato YYYY-MM-DD
+
+          // Establecer la fecha en el input "mifecha"
+          mifechaInput.value = formattedTaskDate;
+
+          console.log(formattedTaskDate); // Imprimir la fecha en la consola
+
+
+
+
           localStorage.setItem('numeroViejito', parseFloat(task.cantidad));
-          
+
           editStatus = true;
           id = doc.id;
           taskForm["btn-task-form"].innerText = "Actualizar";
@@ -306,9 +364,9 @@ window.addEventListener("DOMContentLoaded", async (e) => {
 
 
         arrcanvasgetmes.push({ categoria: task.category, total: task.cantidad });
-       // console.log(arrcanvasgetmes)
+        //   console.log(arrcanvasgetmes)
 
-   
+
 
 
       } else {
@@ -339,7 +397,7 @@ window.addEventListener("DOMContentLoaded", async (e) => {
     //suma total de los gastos del mes
     let total = arr2.reduce((a, b) => a + b, 0);
 
-    tasksContainer2.innerHTML += `<tr><td>Total</td><td></td><td></td><td>$` + total.toLocaleString('es-MX') + `</td><td></td><td></td></tr>`
+    tasksContainer2.innerHTML += `<tr><td>Total</td><td></td><td style='font-size: 0;' id='mytotalmes'>`+total+`</td><td>$` + total.toLocaleString('es-MX') + `</td><td></td><td></td></tr>`
     //sdetonar2();
     var totalActual = parseFloat(obtctag) - total;
     document.getElementById('totalCuenta').innerHTML = "$" + totalActual.toLocaleString('es-MX');
@@ -394,6 +452,18 @@ window.addEventListener("DOMContentLoaded", async (e) => {
           taskForm["task-category"].value = task.category;
           taskForm["task-description"].value = task.description;
           taskForm["task-number"].value = task.cantidad;
+
+          const taskDate = task.date; // Suponiendo que task.date es un número que representa el día del mes
+          const year = new Date().getFullYear(); // Obtener el año actual
+          const month = new Date().getMonth() + 1; // Obtener el mes actual (se suma 1 porque en JavaScript los meses van de 0 a 11)
+          const formattedTaskDate = `${year}-${month.toString().padStart(2, '0')}-${taskDate.toString().padStart(2, '0')}`; // Formato YYYY-MM-DD
+
+          // Establecer la fecha en el input "mifecha"
+          mifechaInput.value = formattedTaskDate;
+
+          console.log(formattedTaskDate); // Imprimir la fecha en la consola
+
+
           localStorage.setItem('numeroViejito', parseFloat(task.cantidad));
 
           editStatus = true;
@@ -554,7 +624,7 @@ function detonar() {
 
   var micat = JSON.parse(localStorage.getItem("key"));
   //console.log(micat)
-
+  var mitotalst = parseInt(document.getElementById('mytotaldia').innerHTML)
 
   const arrultcat = [];
   const arrultotales = [];
@@ -596,7 +666,14 @@ function detonar() {
       // Mostrando en pantalla la clave junto a su valor
       //alert("La clave es " + clave+ " y el valor es " + rta[clave]);
       arrultcat.push(clave);
-      arrultotales.push(rta[clave])
+      //si quieres obtener los totales de cada categoria descomenta
+      //arrultotales.push(rta[clave])
+     // console.log(rta[clave])
+      //aqui hacemos la conversión de cantidad a %
+
+      var porcentaje = Math.round(rta[clave] / mitotalst * 100);
+      arrultotales.push(porcentaje);
+      
 
     }
   }
@@ -610,7 +687,7 @@ function detonar() {
     data: {
       labels: arrultcat,
       datasets: [{
-        label: 'cantidad gastada $',
+        label: 'cantidad gastada %',
         data: arrultotales,
         backgroundColor: [
           '#ED6464',
@@ -645,7 +722,7 @@ function detonar2() {
 
   var micat = JSON.parse(localStorage.getItem("key2"));
   //console.log(micat)
-
+var mitotalst = parseInt(document.getElementById('mytotalmes').innerHTML)
 
   const arrultcat = [];
   const arrultotales = [];
@@ -687,7 +764,16 @@ function detonar2() {
       // Mostrando en pantalla la clave junto a su valor
       //alert("La clave es " + clave+ " y el valor es " + rta[clave]);
       arrultcat.push(clave);
-      arrultotales.push(rta[clave])
+      //si quieres obtener los totales de cada categoria descomenta
+      //arrultotales.push(rta[clave])
+     // console.log(rta[clave])
+      //aqui hacemos la conversión de cantidad a %
+
+      var porcentaje = Math.round(rta[clave] / mitotalst * 100);
+      arrultotales.push(porcentaje);
+      console.log(rta[clave] / mitotalst * 100)
+      console.log(porcentaje)
+      
 
     }
   }
@@ -696,12 +782,13 @@ function detonar2() {
   if (myChart) {
     myChart.destroy();
   }
+  console.log(arrultotales);
   myChart = new Chart(ctx, {
     type: "pie",
     data: {
       labels: arrultcat,
       datasets: [{
-        label: 'cantidad gastada $',
+        label: 'cantidad gastada %',
         data: arrultotales,
         backgroundColor: [
           '#ED6464',
@@ -764,10 +851,12 @@ taskForm.addEventListener("submit", async (e) => {
   const uid = document.getElementById('nombre').innerHTML;
 
 
+  
+
 
   try {
     if (!editStatus) {
-      await saveTask(fechaDiaRegistro, title.value, categoria.value, description.value, cantidad.value, mesActual, uid);
+      await saveTask(fechaDiaRegistro, title.value, categoria.value, description.value, cantidad.value, mesActual, mesActualTemp,  uid);
       //esto sirve para sumar ingreso a mi total
 
       detonar();
@@ -801,6 +890,7 @@ taskForm.addEventListener("submit", async (e) => {
         category: categoria.value,
         description: description.value,
         cantidad: cantidad.value,
+        date: fechaDiaRegistro
 
       });
       detonar();
@@ -874,6 +964,6 @@ taskForm3.addEventListener("submit", async (e) => {
 
 
 
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
   detonar();
 });
